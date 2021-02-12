@@ -1,0 +1,77 @@
+
+<h1 *ngIf="dealer">{{dealer.id}} - {{dealer.description}}</h1>
+<h3 *ngIf="dealer">{{dealer.status?.description}}</h3>
+
+<mat-tab-group>
+    <mat-tab label="Info">
+        <table class="mat-table" style="width: 100%;" *ngIf="dealer">
+            <tr class="mat-header-row" *ngFor="let e of list">
+                <th class="mat-header-cell" >
+                    {{e.label}}
+                </th>
+                <td class="mat-cell">
+                    {{e.value}}
+                </td>
+            </tr>
+        </table>
+    </mat-tab>
+<mat-tab label="Structures"> 
+    <table mat-table [dataSource]="dealer.structures" *ngIf="dealer"  style="width: 100%">
+
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef style="width: 1%;" class="format"> Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="network">
+            <th mat-header-cell *matHeaderCellDef style="width: 1%;"class="format" > Network </th>
+            <td mat-cell *matCellDef="let element"> {{element.network.description}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="region">
+            <th mat-header-cell *matHeaderCellDef> Region </th>
+            <td mat-cell *matCellDef="let element"> {{element.region.description}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="zone">
+            <th mat-header-cell *matHeaderCellDef> Zone </th>
+            <td mat-cell *matCellDef="let element"> {{element.zone.description}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="field_manager">
+            <th mat-header-cell *matHeaderCellDef class="xs"> Field manager </th>
+            <td mat-cell *matCellDef="let element" class="xs"> {{element.field_manager.description}} </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="['type', 'network', 'region', 'zone', 'field_manager']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['type', 'network', 'region', 'zone', 'field_manager'];"></tr>
+    </table>
+</mat-tab>
+<mat-tab label="Mandates">
+    <table mat-table [dataSource]="dealer.mandates" *ngIf="dealer"  style="width: 100%">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef style="width: 1%;" class="format"> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef style="width: 1%;"class="format" > Brand </th>
+            <td mat-cell *matCellDef="let element"> {{element.brand.description}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="services">
+            <th mat-header-cell *matHeaderCellDef> Services </th>
+            <td mat-cell *matCellDef="let element"> 
+                <mat-chip-list>
+                    <mat-chip *ngFor="let e of element.services">{{e}}</mat-chip>
+                </mat-chip-list>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="['id', 'brand', 'services']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['id', 'brand', 'services'];"></tr>
+        </table>
+</mat-tab>
+</mat-tab-group>
+  

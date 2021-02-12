@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="mat-typography">
+  <app-root></app-root>
+</body>
+<script>  function save_access_token() {
+  let url = window.location.href
+    .substring(window.location.href.indexOf("#") + 1)
+    .split("&")
+    .reduce((r, e) => {
+      r[e.split("=")[0]] = e.split("=")[1]
+      return r;
+    }
+      , {})
+
+  localStorage.setItem("id_token", url["id_token"])
+  localStorage.setItem("access_token", url["access_token"])
+  console.log(url)
+  return url["access_token"]
+}
+
+function redirect_to_identity_server() {
+  window.location.href = "http://161.27.146.15:8180/auth/realms/Geco_Realm/protocol/openid-connect/auth?redirect_uri=http://localhost:4200&client_id=GecoLocalhost&response_type=token%20id_token&nonce=" + Math.random()
+}
+
+
+function is_current_access_token_valid() {
+  return localStorage.getItem("access_token") != null
+}
+
+function is_access_token_available_in_url() {
+  return window.location.href.indexOf("access_token") != -1
+}
+
+
+if (!is_current_access_token_valid()) {
+  if (is_access_token_available_in_url()) save_access_token();
+  else redirect_to_identity_server();
+}
+</script>
+</html>

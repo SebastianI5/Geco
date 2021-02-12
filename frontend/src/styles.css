@@ -1,0 +1,26 @@
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.format{
+    padding-right: 5em;
+}
+
+td.mat-cell{
+    padding-right: 2em !important;
+}
+
+.mat-row:hover{
+    background-color: #fafafa;
+}
+
+@media (max-width: 800px) {
+
+    .xs {
+        display: none;
+    }
+}
+
+mat-toolbar{
+    background-color: #29434e;
+}

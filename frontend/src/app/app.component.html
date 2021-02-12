@@ -1,0 +1,13 @@
+<p>
+    <mat-toolbar color="primary">
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span><a routerLink="/"><img src="assets/logo.png" style="height: 3em;"></a></span>
+      <span style="flex: auto;"></span>
+      <span>{{name}}</span>
+    </mat-toolbar>
+</p>
+<div style="width: 92%; margin: auto;">
+  <router-outlet></router-outlet>
+</div>
