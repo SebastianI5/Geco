@@ -1,14 +1,17 @@
 
 package com.eng.geco;
 
-import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +45,8 @@ public class DealerController {
             "dealership_group", " and id = :dealership_group", "vatcode", " and vatcode = :vatcode", "id",
             " and id = :id");
 
-    private static Map<String, String> ordering = Map.of("id", "id ", "status_id", "status ->> 'id' ", "description","description ");
+    private static Map<String, String> ordering = Map.of("id", "id ", "status_id", "status ->> 'id' ", "description",
+            "description ");
 
     @GetMapping("/dealers")
     public List<Map<String, Object>> list(@RequestParam Map<String, String> parameters,
@@ -51,11 +55,14 @@ public class DealerController {
             @RequestHeader Map<String, String> headers) {
 
         User user = user(headers);
+
         System.out.println("User logged : " + user.given_name + " " + user.family_name);
+
         String sql = "select COUNT(0) OVER (PARTITION BY null) as record_count , * from geco.dealers_geco where 1=1 "
                 + queryConditions.entrySet().stream().filter(e -> parameters.containsKey(e.getKey()))
                         .map(e -> e.getValue()).collect(Collectors.joining(" "))
                 + " order by " + getOrderByString(sort, direction) + " limit " + limit + " offset " + offset;
+
         System.out.println("sql: " + sql);
         return template.queryForList(sql, parameters).stream().map(e -> normalize(e)).collect(Collectors.toList());
     }
@@ -66,7 +73,13 @@ public class DealerController {
         if (res.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Dealer " + id + " not found");
         }
-        return res.get(0);
+        String query = "select * from geco.contracts_geco where dealer_id = :id ";
+        Map<String, Object> dealer = res.get(0);
+        dealer.put("contracts", template.queryForList(query, Map.of("id", id))
+                .stream()
+                .map(e -> normalize(e))
+                .collect(Collectors.toList()));
+        return dealer;
     }
 
     private Map<String, Object> normalize(Map<String, Object> input) {
@@ -88,13 +101,15 @@ public class DealerController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Header x-authorization not found");
         }
         try {
-            accessToken = accessToken.substring(accessToken.indexOf('.') + 1, accessToken.lastIndexOf('.'));
-            accessToken = new String(Base64.getUrlDecoder().decode(accessToken));
-            System.out.println("access token : " + accessToken);
-            Map<String, Object> parsed = parseAccessToken(accessToken);
-            return new User().withFamilyName(parsed.get("family_name").toString())
-                    .withGivenName(parsed.get("given_name").toString());
-        } catch (Exception e) {
+            DecodedJWT jwt = JWT.decode(accessToken);
+            Date expirationDate = jwt.getExpiresAt();
+            if (expirationDate.compareTo(new Date()) <= 0) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                        "Header x-authorization contains expired token");
+            }
+            return new User().withFamilyName(jwt.getClaim("family_name").asString())
+                    .withGivenName(jwt.getClaim("given_name").asString());
+        } catch (JWTDecodeException exception) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Header x-authorization not valid");
         }
 
@@ -104,15 +119,6 @@ public class DealerController {
         ObjectMapper om = new ObjectMapper();
         try {
             return om.readValue(input, Object.class);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private Map<String, Object> parseAccessToken(String accessToken) {
-        ObjectMapper om = new ObjectMapper();
-        try {
-            return om.readValue(accessToken, Map.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
