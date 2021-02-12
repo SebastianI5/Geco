@@ -35,6 +35,10 @@ function redirect_to_identity_server() {
 
 
 function is_current_access_token_valid() {
+  let access_token = localStorage.getItem("access_token");
+  if(!access_token){
+    return false;
+  }
   return localStorage.getItem("access_token") != null
 }
 

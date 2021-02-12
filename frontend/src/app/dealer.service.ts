@@ -1,4 +1,3 @@
-import { NumberFormatStyle } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -37,6 +36,7 @@ export class DealerService {
   }
 
   get(id: string) {
-    return this.http.get<any>('http://localhost:8080/dealers/' + id).toPromise();
+    let headers = new HttpHeaders().set("x-authorization", localStorage.getItem("access_token"));
+    return this.http.get<any>('http://localhost:8080/dealers/' + id, { headers: headers}).toPromise();
   }
 }
