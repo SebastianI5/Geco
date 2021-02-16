@@ -1,0 +1,24 @@
+<table mat-table [dataSource]="dealer.mandates"  style="width: 100%">
+
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef style="width: 1%;" class="format"> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="brand">
+        <th mat-header-cell *matHeaderCellDef style="width: 1%;"class="format" > Brand </th>
+        <td mat-cell *matCellDef="let element"> {{element.brand.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="services">
+        <th mat-header-cell *matHeaderCellDef> Services </th>
+        <td mat-cell *matCellDef="let element"> 
+            <mat-chip-list>
+                <mat-chip *ngFor="let e of element.services">{{e}}</mat-chip>
+            </mat-chip-list>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id', 'brand', 'services']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'brand', 'services'];"></tr>
+    </table>

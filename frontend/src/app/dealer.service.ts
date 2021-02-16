@@ -18,6 +18,7 @@ function is_set(x){
 }
 
 function clean(o){
+  console.log(o);
   let result = {};
   Object.keys(o).forEach(e => {if(is_set(o[e])) result[e]=o[e]});
   return result;

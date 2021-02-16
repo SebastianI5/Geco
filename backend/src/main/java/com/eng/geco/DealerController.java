@@ -29,7 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
  */
 @RestController
 @CrossOrigin
-public class DealerController {
+public class DealerController extends AbstractController{
 
     @Autowired
     NamedParameterJdbcOperations template;
@@ -54,27 +54,15 @@ public class DealerController {
             @RequestParam(defaultValue = "id") String sort, @RequestParam(defaultValue = "asc") String direction,
             @RequestHeader Map<String, String> headers) {
 
-        User user = user(headers);
-
-        System.out.println("User logged : " + user.given_name + " " + user.family_name);
-
-        String sql = "select COUNT(0) OVER (PARTITION BY null) as record_count , * from geco.dealers_geco where 1=1 "
-                + queryConditions.entrySet().stream().filter(e -> parameters.containsKey(e.getKey()))
-                        .map(e -> e.getValue()).collect(Collectors.joining(" "))
-                + " order by " + getOrderByString(sort, direction) + " limit " + limit + " offset " + offset;
-
-        System.out.println("sql: " + sql);
-        return template.queryForList(sql, parameters).stream().map(e -> normalize(e)).collect(Collectors.toList());
+        return super.list(parameters, offset, limit, sort, direction, headers);
     }
 
     @GetMapping("/dealers/{id}")
     public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
-        List<Map<String, Object>> res = list(Map.of("id", id), 0L, 1L, "id", "asc", headers);
-        if (res.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Dealer " + id + " not found");
-        }
+        
+        
+        Map<String, Object> dealer = super.get(id, headers);
         String query = "select * from geco.contracts_geco where dealer_id = :id ";
-        Map<String, Object> dealer = res.get(0);
         dealer.put("contracts", template.queryForList(query, Map.of("id", id))
                 .stream()
                 .map(e -> normalize(e))
@@ -82,51 +70,25 @@ public class DealerController {
         return dealer;
     }
 
-    private Map<String, Object> normalize(Map<String, Object> input) {
-        Map<String, Object> result = new HashMap<>();
-        input.forEach((k, v) -> {
-            if (v instanceof PGobject) {
-                PGobject o = (PGobject) v;
-                result.put(k, parseJson(o.getValue()));
-            } else {
-                result.put(k, v);
-            }
-        });
-        return result;
-    }
+	@Override
+	protected String table() {
+		return "dealers";
+	}
 
-    private User user(Map<String, String> headers) {
-        String accessToken = headers.get("x-authorization");
-        if (accessToken == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Header x-authorization not found");
-        }
-        try {
-            DecodedJWT jwt = JWT.decode(accessToken);
-            Date expirationDate = jwt.getExpiresAt();
-            if (expirationDate.compareTo(new Date()) <= 0) {
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                        "Header x-authorization contains expired token");
-            }
-            return new User().withFamilyName(jwt.getClaim("family_name").asString())
-                    .withGivenName(jwt.getClaim("given_name").asString());
-        } catch (JWTDecodeException exception) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Header x-authorization not valid");
-        }
+	@Override
+	protected Map<String, String> conditions() {
+		return queryConditions;
+	}
 
-    }
+	@Override
+	protected Map<String, String> ordering() {
+		return ordering;
+	}
 
-    private Object parseJson(String input) {
-        ObjectMapper om = new ObjectMapper();
-        try {
-            return om.readValue(input, Object.class);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    
 
-    private String getOrderByString(String sort, String direction) {
-        String dir = List.of("asc", "desc").contains(direction.toLowerCase()) ? direction : "asc";
-        return ordering.containsKey(sort) ? ordering.get(sort) + " " + dir : " id " + dir;
-    }
+    
+
+    
 
 }

@@ -24,13 +24,31 @@ import { MatButtonModule } from '@angular/material/button';
 import { DealerComponent } from './dealer/dealer.component';
 import { MatSortModule } from '@angular/material/sort';
 import { Interceptor } from './interceptor';
+import { ErrorsService } from './errors.service';
+import { TPipe } from './t.pipe';
+import { DealerInfoComponent } from './dealer-info/dealer-info.component';
+import { DealerStructuresComponent } from './dealer-structures/dealer-structures.component';
+import { DealerMandatesComponent } from './dealer-mandates/dealer-mandates.component';
+import { DealerContractsComponent } from './dealer-contracts/dealer-contracts.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { DocumentsComponent } from './documents/documents.component';
+import { ContractsComponent } from './contracts/contracts.component';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DealersComponent,
-    DealerComponent
+    DealerComponent,
+    TPipe,
+    DealerInfoComponent,
+    DealerStructuresComponent,
+    DealerMandatesComponent,
+    DealerContractsComponent,
+    DocumentsComponent,
+    ContractsComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -52,13 +70,14 @@ import { Interceptor } from './interceptor';
     MatDividerModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: Interceptor,
     multi: true
-  }],
+  }, ErrorsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

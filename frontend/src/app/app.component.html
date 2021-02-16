@@ -4,6 +4,8 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span><a routerLink="/"><img src="assets/logo.png" style="height: 3em;"></a></span>
+      <a routerLink="/dealers" class="menu {{current_page=='dealers'?'menu-active':''}}">{{"dealers" | t}}</a>
+      <a routerLink="/contracts" class="menu {{current_page=='contracts'?'menu-active':''}}">{{"contracts" | t}}</a>
       <span style="flex: auto;"></span>
       <span>{{name}}</span>
     </mat-toolbar>

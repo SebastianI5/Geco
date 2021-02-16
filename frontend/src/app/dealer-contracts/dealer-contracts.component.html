@@ -1,0 +1,40 @@
+<table class="mat-table" style="width: 100%;">
+    <tr class="mat-header-row">
+        <th class="mat-header-cell" >
+            Service
+        </th>
+        <th class="mat-header-cell" >
+            Brand
+        </th>
+        <th class="mat-header-cell" >
+            #Documents
+        </th>
+        <th class="mat-header-cell" >
+            Signed contract
+        </th>
+        <th class="mat-header-cell" >
+            Completed
+        </th>
+    </tr>
+    <tr class="mat-header-row" *ngFor="let e of dealer.contracts; let i = index">
+        <td class="mat-cell" >
+            {{e.service}}
+        </td>
+        <td class="mat-cell">
+            <span [matTooltip]="e.brand_id" matTooltipPosition="right">
+                {{"brand_" + e.brand_id | t}}
+            </span>
+        </td>
+        <td class="mat-cell" >
+            <a [routerLink]="'/dealers/' + dealer.id + '/contracts/' + e.id + '/documents'">
+                {{dealer.contracts.length}}
+            </a>
+        </td>
+        <td class="mat-cell">
+            URL
+        </td>
+        <td class="mat-cell">
+            <mat-icon style="color: green">done</mat-icon>
+        </td>
+    </tr>
+</table>

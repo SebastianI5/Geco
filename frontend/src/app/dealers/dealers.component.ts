@@ -9,47 +9,44 @@ import { DealerService } from '../dealer.service';
 })
 export class DealersComponent implements OnInit {
 
-  list : any [] = [];
-
+  config: any = {
+    search_params: [{
+      label: "dealer",
+      field: "id"
+    },{
+      label: "description",
+      field: "description_like"
+    }],
+    table_fields: [{
+      label: "id",
+      field: "id",
+      classes: ""
+    },{
+      label: "description",
+      field: "description",
+      classes: ""
+    },{
+      label: "status",
+      render: (row) => row.status.description,
+      classes: "xs"
+    }]  
+  };  
 
   params = {
     id: "",
-    description_like: "",
-    offset:  0,
-    limit: 10,
-    sort: 'id',
-    direction: 'asc'
+    description_like: ""
   }
 
   constructor(private d: DealerService, private router: Router) { }
 
-  ngOnInit(): void {
-    this.load();
-  }
+  ngOnInit(): void {}
 
-  async load() {
-    this.list = await this.d.list(this.params);
+  async load(params) {
+    return await this.d.list(params);
   }
 
   navigate(row){
-    this.router.navigate(['/dealers/' + row.id]);
-  }
-
-  pageChanged(e){
-    this.params.offset = e.pageIndex * e.pageSize;
-    this.params.limit = e.pageSize;
-    this.load();
-  }
-
-  resetOffset(){
-    this.params.offset = 0;
-  }
-
-  sort(e){
-    this.params.sort = e.active;
-    this.params.direction = e.direction;
-    this.resetOffset();
-    this.load();
+    this.router.navigate(['/dealers/'+row.id]);
   }
 
 }

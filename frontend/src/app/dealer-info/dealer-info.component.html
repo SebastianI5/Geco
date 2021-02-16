@@ -1,0 +1,10 @@
+<table class="mat-table" style="width: 100%;">
+    <tr class="mat-header-row" *ngFor="let e of list">
+        <th class="mat-header-cell" >
+            {{e.label | t}}
+        </th>
+        <td class="mat-cell">
+            {{e.value}}
+        </td>
+    </tr>
+</table>

@@ -25,8 +25,8 @@
 
   localStorage.setItem("id_token", url["id_token"])
   localStorage.setItem("access_token", url["access_token"])
-  console.log(url)
-  return url["access_token"]
+  
+  set_next_clear_time()
 }
 
 function redirect_to_identity_server() {
@@ -39,11 +39,32 @@ function is_current_access_token_valid() {
   if(!access_token){
     return false;
   }
-  return localStorage.getItem("access_token") != null
+  set_next_clear_time()
+  return true
 }
 
 function is_access_token_available_in_url() {
   return window.location.href.indexOf("access_token") != -1
+}
+
+function user(){
+    let access_token = localStorage.getItem('access_token');
+    access_token = access_token.substring(access_token.indexOf('.')+1, access_token.lastIndexOf('.'));
+    access_token = atob(access_token);
+    access_token = JSON.parse(access_token);
+    return access_token;
+}
+
+function set_next_clear_time(){
+  let access_token = user()
+  let now = new Date().getTime()/1000;
+  let next_clear_time = access_token['exp'] - now;
+
+  setTimeout(() => {
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("access_token");
+    redirect_to_identity_server();
+  }, next_clear_time * 1000)
 }
 
 

@@ -1,0 +1,14 @@
+.menu {
+    padding-left: 2em;
+    text-decoration: none;
+    filter: brightness(80%);
+    color: #ffffff;
+}
+
+.menu:hover {
+    filter: brightness(90%);
+}
+
+.menu-active{
+    filter: brightness(100%) !important;
+}

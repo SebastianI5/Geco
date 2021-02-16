@@ -1,30 +1,17 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { tap, catchError } from "rxjs/operators";
+import { ErrorsService } from 'src/app/errors.service';
 
-export class Interceptor implements HttpInterceptor {    
+@Injectable()
+export class Interceptor implements HttpInterceptor {
+
+    constructor(private error_service: ErrorsService){}
+
     intercept(req: HttpRequest<any>, next: HttpHandler)
         :Observable<HttpEvent<any>> {                 
-            //next.handle(req).subscribe( next => (next), err => console.log("pipo: " + JSON.stringify(err.error.message)));
-            //return next.handle(req);
+            next.handle(req).subscribe( next => (next), err => this.error_service.openSnackBar(err.error.message, "OK"));
+            return next.handle(req);
 
-            // return next.handle(req).pipe(
-            //   map((event: HttpEvent<any>) => {
-            //       if (event instanceof HttpResponse) {
-            //           console.log('event--->>>', event);
-            //           // this.errorDialogService.openDialog(event);
-            //       }
-            //       return event;
-            //   }),
-              return next.handle(req)
-                    .subscribe(next => {this.handler_valid()}, err => {this.handler_not_valid(er)});
         };
-    
-    private handler_valid(){
-      console.log("valid")
-    }
-
-    private handler_not_valid(){
-      console.log("error")
-    }
 }
