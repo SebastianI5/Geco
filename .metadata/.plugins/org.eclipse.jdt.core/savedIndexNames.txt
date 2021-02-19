@@ -37,7 +37,6 @@ INDEX VERSION 1.131+C:\Progetti\AngularWS\Geco\.metadata\.plugins\org.eclipse.jd
 1087367635.index
 4229779018.index
 2200272674.index
-1965174767.index
 3762651273.index
 437777438.index
 2322744727.index

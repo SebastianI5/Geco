@@ -13,14 +13,14 @@ export class BusService {
   map = new Map<string, ((event: string, params?: any) => void)[] >();
 
   async publish( event: string, params?: any  ){
-    const list = this.map.get(event) || [];
+    let list = this.map.get(event) || [];
     list.forEach(async callback => {
       await callback(event, params);
     });
   }
 
   subscribe(event: string , callback: (event: string, params?: any) => void ){
-    const list = this.map.get(event) || [];
+    let list = this.map.get(event) || [];
     list.push(callback);
     this.map.set(event, list);
   }

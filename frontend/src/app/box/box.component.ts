@@ -1,10 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ActivatedRoute } from '@angular/router';
 import { AddCoverBottomSheetComponent } from '../add-cover-bottom-sheet/add-cover-bottom-sheet.component';
 import { BoxesService } from '../boxes.service';
 import { CoverService } from '../cover.service';
+import { BusService, RELOAD_EVENT } from 'src/app/bus.service';
 
 @Component({
   selector: 'app-box',
@@ -26,21 +27,31 @@ export class BoxComponent implements OnInit {
       classes: ""
     },{
       label: "service",
-      field: "service",
+      field: "service_id",
       classes: ""
     },{
       label: "brand",
-      field: "brand",
+      field: "brand_id",
       classes: ""
     },{
       label: "dealer",
-      field: "dealer",
+      field: "dealer_id",
       classes: ""
     },{
       label: "created_at",
       render: (row) => this.date.transform(row.created_at),
       classes: ""
-    }]  
+    },{
+      label: "action",
+      action: (id) => this.remove_cover(id),
+      icon: "delete",
+      classes: ""
+    }],
+    actions: [{
+      label: "delete",
+      icon: "delete",
+      classes: ""
+    }]
   };  
 
   params = {}
@@ -49,7 +60,8 @@ export class BoxComponent implements OnInit {
     private c: CoverService,
     private a: ActivatedRoute,
     private date: DatePipe,
-    private bs: MatBottomSheet) { }
+    private bs: MatBottomSheet,
+    private bus: BusService) { }
 
   ngOnInit(): void {
     this.load();
@@ -69,6 +81,11 @@ export class BoxComponent implements OnInit {
     this.bs.open(AddCoverBottomSheetComponent, {
       data: this.a.snapshot.params.id
     });
+  }
+
+  async remove_cover(id: string){
+    await this.c.delete(id);
+    await this.bus.publish(RELOAD_EVENT);
   }
 
 }

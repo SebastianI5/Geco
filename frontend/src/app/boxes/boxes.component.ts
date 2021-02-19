@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BoxesService } from '../boxes.service';
 import { TPipe } from '../t.pipe';
-import { BusService, RELOAD_EVENT } from 'src/app/bus.service';
+
 
 @Component({
   selector: 'app-boxes',
@@ -55,14 +55,14 @@ export class BoxesComponent implements OnInit {
   constructor(private b: BoxesService, 
       private router: Router, 
       private date: DatePipe,
-      private t: TPipe,
-      private bus: BusService) { }
+      private t: TPipe) { }
 
   ngOnInit(): void {
-    this.bus.subscribe(RELOAD_EVENT, () => {this.load(this.params); console.log("hello")});
+   
   }
 
   async load(params) {
+    console.log("caricamento")
     return await this.b.list(params);
   }
 

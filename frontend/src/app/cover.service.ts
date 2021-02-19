@@ -24,4 +24,8 @@ export class CoverService {
     let headers = new HttpHeaders().set("x-authorization", localStorage.getItem("access_token"));
     return this.http.put<any>(base_url + '/covers/' + cover_id, body, { headers: headers}).toPromise();
   }
+
+  delete(id: string) {
+    return this.net.delete('covers', id);
+  }
 }

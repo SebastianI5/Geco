@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import * as EventEmitter from 'events';
+import { BusService, RELOAD_EVENT } from 'src/app/bus.service';
 
 @Component({
   selector: 'app-search',
@@ -29,9 +29,10 @@ export class SearchComponent implements OnInit {
   @Input()
   navigate: any;
 
-  constructor() { }
+  constructor(private bus: BusService) { }
 
   async ngOnInit() {
+    this.bus.subscribe(RELOAD_EVENT, () => this.load_list());
     await this.load_list();
   }
 
