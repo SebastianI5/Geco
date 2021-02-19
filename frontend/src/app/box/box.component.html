@@ -1,0 +1,16 @@
+<h2 *ngIf="box">{{"cover_list" | t}} ({{"box" | t}} {{box.id}})</h2>
+<app-search 
+  [config]="config" 
+  [params]="params"
+  [load]="load_covers.bind(this)"
+  [navigate]="navigate.bind(this)"
+  >
+</app-search>
+
+<button mat-fab style="position: fixed; right: 5em; bottom: 5em;" 
+    color="primary"
+    (click)="openBottomSheet()">
+    <mat-icon>add</mat-icon>
+</button>
+
+<pre>{{box | json}}</pre>

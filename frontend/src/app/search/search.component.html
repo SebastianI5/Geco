@@ -3,12 +3,12 @@
     <input matInput [(ngModel)]="params[e.field]" (ngModelChange)="resetOffset()" (keyup.enter)="load_list()">
 </mat-form-field>
 
-<button mat-flat-button color="primary" style="width: 100%" (click)="load_list()">{{"search" | t}}</button> <hr>
+<button mat-flat-button *ngIf="config.search_params.length>0" color="primary" style="width: 100%" (click)="load_list()">{{"search" | t}}</button> <hr>
 
 <table mat-table [dataSource]="list" matSort (matSortChange)="sort($event)" style="width: 100%">
 
     <ng-container *ngFor="let e of config.table_fields" [matColumnDef]="e.label">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="format"> {{e.label | t}} </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="format {{e.classes}}"> {{e.label | t}} </th>
       <td mat-cell *matCellDef="let element" class="format {{e.classes}}"> 
           {{e.render? e.render(element) : element[e.field]}} 
         </td>
@@ -16,11 +16,19 @@
 
     <tr mat-header-row *matHeaderRowDef="table_fields()"></tr>
     <tr mat-row *matRowDef="let row; columns: table_fields()" (click)="navigate(row)"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="20" style="text-align: center;">{{"no_data_found" | t}}</td>
+    </tr>
   </table>
 
-  <mat-paginator [length]="list[0]?.record_count" [pageSize]="common_params.limit"
-  [pageSizeOptions]="[2, 5, 10, 20]" [pageIndex]="common_params.offset/common_params.limit"
-  (page)="pageChanged(($event))"></mat-paginator>
+  <mat-paginator [length]="list[0]?.record_count" 
+  *ngIf="list[0]?.record_count>0" 
+  [pageSize]="common_params.limit"
+  [pageSizeOptions]="[2, 5, 10, 20]" 
+  [pageIndex]="common_params.offset/common_params.limit"
+  (page)="pageChanged(($event))"
+  [itemsPerPageLabel]="pippo"
+  ></mat-paginator>
 
   <pre>{{list | json}}</pre>
   

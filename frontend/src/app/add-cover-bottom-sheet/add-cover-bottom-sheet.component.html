@@ -1,0 +1,51 @@
+    <!-- <mat-nav-list >
+        <a mat-list-item (click)="openLink($event)" *ngFor="let e of list">
+        <span mat-line>ID {{e.id}}</span>
+        <span mat-line>Market {{e.market}}</span>
+        <span mat-line>Service {{e.service}}</span>
+        <span mat-line>Brand {{e.brand}}</span>
+        <span mat-line>Dealer {{e.dealer_id}}</span>
+        </a>    
+    </mat-nav-list> -->
+            <table class="mat-table" style="width: 100%;" >
+                <tr class="mat-header-row">
+                    <th class="mat-header-cell" >
+                        ID
+                    </th>
+                    <th class="mat-header-cell" >
+                        Market
+                    </th>
+                    <th class="mat-header-cell" >
+                        Service
+                    </th>
+                    <th class="mat-header-cell" >
+                        Brand
+                    </th>
+                    <th class="mat-header-cell" >
+                        Dealer
+                    </th>
+                </tr>
+                <tr *ngFor="let e of list" (click)="add_cover(e)">
+                    <td class="mat-cell format">
+                        {{e.id}}
+                    </td>
+                    <td class="mat-cell">
+                        {{e.market}}
+                    </td>
+                    
+                    <td class="mat-cell">
+                        {{e.service}}
+                    </td>
+                    
+                    <td class="mat-cell">
+                        {{e.brand}}
+                    </td>
+                    
+                    <td class="mat-cell">
+                        {{e.dealer_id}}
+                    </td>
+                </tr>
+            </table>
+      
+
+  

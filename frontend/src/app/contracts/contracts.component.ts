@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ContractService } from '../contract.service';
 
 @Component({
@@ -32,7 +33,7 @@ export class ContractsComponent implements OnInit {
     id: ""
   }
 
-  constructor(private c: ContractService) { }
+  constructor(private c: ContractService, private router: Router) { }
 
   ngOnInit(): void {}
 
@@ -41,6 +42,7 @@ export class ContractsComponent implements OnInit {
   }
 
   navigate(row){
+    this.router.navigate(['/dealers/'+row.dealer_id+'/contracts/'+row.id+'/documents']);
   }
 
   

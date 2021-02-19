@@ -62,7 +62,7 @@ public class DealerController extends AbstractController{
         
         
         Map<String, Object> dealer = super.get(id, headers);
-        String query = "select * from geco.contracts_geco where dealer_id = :id ";
+        String query = "select * from geco.contracts_" + tenantId(User.user(headers)) + " where dealer_id = :id ";
         dealer.put("contracts", template.queryForList(query, Map.of("id", id))
                 .stream()
                 .map(e -> normalize(e))

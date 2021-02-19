@@ -8,6 +8,9 @@ import { user } from './util';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+
+  showFiller = false;
+
   title = 'frontend';
 
   current_page = "dealers";

@@ -1,20 +1,24 @@
 <table mat-table [dataSource]="dealer.mandates"  style="width: 100%">
 
     <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef style="width: 1%;" class="format"> Id </th>
+        <th mat-header-cell *matHeaderCellDef style="width: 1%;" class="format"> {{"id" | t}} </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
     
     <ng-container matColumnDef="brand">
-        <th mat-header-cell *matHeaderCellDef style="width: 1%;"class="format" > Brand </th>
-        <td mat-cell *matCellDef="let element"> {{element.brand.description}} </td>
+        <th mat-header-cell *matHeaderCellDef style="width: 1%;"class="format" > {{"brand" | t}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.brand_id}} </td>
     </ng-container>
 
     <ng-container matColumnDef="services">
-        <th mat-header-cell *matHeaderCellDef> Services </th>
+        <th mat-header-cell *matHeaderCellDef> {{"services" | t}} </th>
         <td mat-cell *matCellDef="let element"> 
             <mat-chip-list>
-                <mat-chip *ngFor="let e of element.services">{{e}}</mat-chip>
+                <mat-chip *ngFor="let e of element.services" 
+                        routerLink="/covers/_new" 
+                        [queryParams]="{dealer_id: dealer.id, market: dealer.market, brand: element.brand_id, service: e}">
+                    {{"service_" + e | t}}
+                </mat-chip>
             </mat-chip-list>
         </td>
     </ng-container>

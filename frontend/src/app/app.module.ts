@@ -11,8 +11,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from  '@angular/material/chips';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +35,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DocumentsComponent } from './documents/documents.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { SearchComponent } from './search/search.component';
+import { VersionsComponent } from './versions/versions.component';
+import { BoxesComponent } from './boxes/boxes.component';
+import { DatePipe } from '@angular/common';
+import { BoxComponent } from './box/box.component';
+import { AddCoverBottomSheetComponent } from './add-cover-bottom-sheet/add-cover-bottom-sheet.component';
+import { CoverComponent } from './cover/cover.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -48,7 +57,13 @@ import { SearchComponent } from './search/search.component';
     DealerContractsComponent,
     DocumentsComponent,
     ContractsComponent,
-    SearchComponent
+    SearchComponent,
+    VersionsComponent,
+    BoxesComponent,
+    BoxComponent,
+    AddCoverBottomSheetComponent,
+    CoverComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -71,13 +86,15 @@ import { SearchComponent } from './search/search.component';
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatBottomSheetModule,
+    MatSidenavModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: Interceptor,
     multi: true
-  }, ErrorsService],
+  }, ErrorsService, DatePipe, TPipe, MatPaginatorIntl],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DealerService } from '../dealer.service';
+import { TPipe } from '../t.pipe';
 
 @Component({
   selector: 'app-dealers',
@@ -27,7 +28,7 @@ export class DealersComponent implements OnInit {
       classes: ""
     },{
       label: "status",
-      render: (row) => row.status.description,
+      render: (row) => this.t.transform("dealer_status_" + row.status),
       classes: "xs"
     }]  
   };  
@@ -37,7 +38,7 @@ export class DealersComponent implements OnInit {
     description_like: ""
   }
 
-  constructor(private d: DealerService, private router: Router) { }
+  constructor(private d: DealerService, private router: Router, private t: TPipe) { }
 
   ngOnInit(): void {}
 

@@ -55,7 +55,7 @@ public abstract class AbstractController {
 	protected abstract Map<String, String> conditions();
 	protected abstract Map<String, String> ordering();
 	
-	private String tenantId(User user) {
+	public String tenantId(User user) {
 		return "geco";
 	}
 	

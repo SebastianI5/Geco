@@ -1,38 +1,9 @@
-<table class="mat-table" style="width: 100%;">
-    <tr class="mat-header-row">
-        <th class="mat-header-cell" >
-            Type
-        </th>
-        <th class="mat-header-cell" >
-            Description
-        </th>
-        <th class="mat-header-cell" >
-            Version
-        </th>
-        <th class="mat-header-cell" >
-            Created at
-        </th>
-        <th class="mat-header-cell" >
-            #Pages
-        </th>
-    </tr>
-    <tr class="mat-header-row" *ngFor="let e of list">
-        <td class="mat-cell" >
-            {{e.type}}
-        </td>
-        <td class="mat-cell" >
-            {{e.description}}
-        </td>
-        <td class="mat-cell" >
-            {{e.versions.length}}
-        </td>
-        <td class="mat-cell" >
-            {{first_version(e.versions).created_at}}
-        </td>
-        <td class="mat-cell" >
-            {{last_version(e.versions).digital.pages}}
-        </td>   
-    </tr>
-</table>
-
-
+ <h2>{{"document_list" | t}}</h2>
+ 
+ <app-search 
+ [config]="config" 
+ [params]="params"
+ [load]="load.bind(this)"
+ [navigate]="navigate.bind(this)"
+ >
+</app-search>

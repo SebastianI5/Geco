@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TPipe } from '../t.pipe';
 
 
 @Component({
@@ -12,14 +13,14 @@ export class DealerInfoComponent implements OnInit {
   dealer: any;
   list: any[] = [];
 
-  constructor() { }
+  constructor(private t: TPipe) { }
 
   ngOnInit(): void {
     this.list=[
       {"label": "vat_code", "value": this.dealer.vatcode},
-      {"label": "market", "value": this.dealer.market},
-      {"label": "sales_manager", "value": this.dealer.respsales},
-      {"label": "after_sales_manager", "value": this.dealer.respaftersales},
+      {"label": "market", "value": this.t.transform("market_" + this.dealer.market)},
+      {"label": "sales_manager", "value": this.dealer.salesmanager},
+      {"label": "after_sales_manager", "value": this.dealer.aftersalesmanager},
       {"label": "category", "value": this.dealer.category}
     ]
   }

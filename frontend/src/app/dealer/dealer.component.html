@@ -1,19 +1,20 @@
 
-<h1 *ngIf="dealer">{{dealer.id}} - {{dealer.description}}</h1>
-<h3 *ngIf="dealer">{{dealer.status?.description}}</h3>
+<h2 *ngIf="dealer">{{"dealer" | t}} {{dealer.id}} - {{dealer.description}} ({{"dealer_status_" + dealer.status | t}})</h2>
 
 <mat-tab-group>
-    <mat-tab label="Info" *ngIf="dealer">
+    <mat-tab label="{{'info' | t}}" *ngIf="dealer">
         <app-dealer-info [dealer]="dealer"></app-dealer-info>
     </mat-tab>
-    <mat-tab label="Structures" *ngIf="dealer"> 
+    <mat-tab label="{{'structures' | t}}" *ngIf="dealer"> 
         <app-dealer-structures [dealer]="dealer"></app-dealer-structures>
     </mat-tab>
-    <mat-tab label="Mandates" *ngIf="dealer">
+    <mat-tab label="{{'mandates' | t}}" *ngIf="dealer">
         <app-dealer-mandates [dealer]="dealer"></app-dealer-mandates>
     </mat-tab>
-    <mat-tab label="Contracts" *ngIf="dealer">
+    <mat-tab label="{{'contracts' | t}}" *ngIf="dealer">
         <app-dealer-contracts [dealer]="dealer"></app-dealer-contracts>
     </mat-tab>
 </mat-tab-group>
+
+<pre>{{dealer | json}}</pre>
   
