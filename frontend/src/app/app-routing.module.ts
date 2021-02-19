@@ -4,13 +4,15 @@ import { BoxComponent } from './box/box.component';
 import { BoxesComponent } from './boxes/boxes.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { CoverComponent } from './cover/cover.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { DealerComponent } from './dealer/dealer.component';
 import { DealersComponent } from './dealers/dealers.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { VersionsComponent } from './versions/versions.component';
 
 const routes: Routes = [
-  
+
+{ path: 'dashboard', component: DashboardComponent },
 { path: 'dealers', component: DealersComponent },
 { path: 'dealers/:id', component: DealerComponent },
 { path: 'contracts', component: ContractsComponent },
@@ -20,7 +22,7 @@ const routes: Routes = [
 { path: 'boxes', component: BoxesComponent },
 { path: 'boxes/:id', component: BoxComponent },
 { path: 'covers/:id', component: CoverComponent },
-{ path: '', redirectTo: '/dealers', pathMatch: 'full' },
+{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 { path: '**', redirectTo: '/dealers', pathMatch: 'full' }
 ];
 

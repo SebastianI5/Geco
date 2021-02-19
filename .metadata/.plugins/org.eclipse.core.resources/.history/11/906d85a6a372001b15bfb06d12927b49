@@ -71,9 +71,12 @@ public class CoversController extends AbstractController{
     		@RequestHeader Map<String, String> headers) {
     	
     	Map<String, Object> cover = get(id, headers);
+    	System.out.println(cover);
+    	System.out.println(headers);
+    	System.out.println(body);
     	String newBoxId = body.get("box_id");
     	
-    	template.update("update geco.covers_geco set box_id=:box_id where id=:id", Map.of("box_id", newBoxId, "id", cover.get("id")));
+    	template.update("update geco.covers_geco set box_id=:box_id where id=:id", Map.of("box_id", newBoxId, "id", id));
     	
     	return get(id, headers);
     }

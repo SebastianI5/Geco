@@ -20,13 +20,8 @@ export class CoverService {
   }
 
   put(cover_id: string, box_id: string){
-    console.log(box_id + " - "+ cover_id);
-    console.log(JSON.stringify("box_id: " + box_id));
-     let headers = new HttpHeaders({'x-authorizaxtion': localStorage.getItem("access_token"), 
-                         'Content-Type':  'application/json', 
-                         'responseType': 'application/json'});
-     
-     console.log(base_url + '/covers/' + box_id,JSON.stringify("box_id: " + box_id));
-     return this.http.put<any>(base_url + '/covers/' + box_id,JSON.stringify("box_id: " + box_id), { headers: headers}).toPromise();
+    let body = {​​ "box_id": box_id }​​;
+    let headers = new HttpHeaders().set("x-authorization", localStorage.getItem("access_token"));
+    return this.http.put<any>(base_url + '/covers/' + cover_id, body, { headers: headers}).toPromise();
   }
 }

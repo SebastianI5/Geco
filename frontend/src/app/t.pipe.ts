@@ -7,6 +7,7 @@ export class TPipe implements PipeTransform {
 
   dictionary = {
     //titles
+    dashboard: "Dashboard",
     dealer_list: "Lista dealers",
     contract_list: "Lista contratti",
     document_list: "Lista documenti",

@@ -15,7 +15,7 @@
 
 </mat-drawer-container> -->
 
-<p>
+<!-- <p>
     <mat-toolbar color="primary">
       <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
@@ -27,8 +27,30 @@
       <span style="flex: auto;"></span>
       <span>{{name}}</span>
     </mat-toolbar>
-</p>
-<div style="width: 92%; margin: auto;">
+</p> -->
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <span><a routerLink="/"><img src="assets/logo.png" style="height: 3em;"></a></span>
+    <span style="flex: auto;"></span>
+    <span>{{name}}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav style="width: 20%;">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh; width: 92%; margin: auto; padding-top: 2em;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container><!-- <div style="width: 92%; margin: auto;">
   <router-outlet></router-outlet>
-</div>
+</div> -->
+
 

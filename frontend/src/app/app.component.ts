@@ -13,17 +13,9 @@ export class AppComponent implements OnInit{
 
   title = 'frontend';
 
-  current_page = "dealers";
+  constructor(){}
 
-  constructor(private router: Router){}
-
-  ngOnInit(): void {
-    this.router.events.subscribe(e => {
-      if(e instanceof NavigationEnd){
-        this.current_page = e.url.substring(1).split("/")[0];
-      }
-    });
-  }
+  ngOnInit(): void {}
 
   
   get name(){

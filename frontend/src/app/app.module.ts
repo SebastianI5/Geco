@@ -43,6 +43,7 @@ import { AddCoverBottomSheetComponent } from './add-cover-bottom-sheet/add-cover
 import { CoverComponent } from './cover/cover.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     BoxComponent,
     AddCoverBottomSheetComponent,
     CoverComponent,
-    SidenavComponent
+    SidenavComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
