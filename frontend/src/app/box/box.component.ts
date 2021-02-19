@@ -43,13 +43,8 @@ export class BoxComponent implements OnInit {
       classes: ""
     },{
       label: "action",
-      action: (id) => this.remove_cover(id),
-      icon: "delete",
-      classes: ""
-    }],
-    actions: [{
-      label: "delete",
-      icon: "delete",
+      actions: [{action: (row) => this.remove_cover(row.id), icon: "delete", class:"red"},
+                {action: (row) => console.log(row.id), icon: "warning_amber", class:"orange"}],
       classes: ""
     }]
   };  

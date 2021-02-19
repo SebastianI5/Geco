@@ -16,6 +16,7 @@ export class TPipe implements PipeTransform {
 
     //commons
     search: "Ricerca",
+    action: "Azioni",
     //dealers-component
     dealer: "Dealer",
     description: "Descrizione",
