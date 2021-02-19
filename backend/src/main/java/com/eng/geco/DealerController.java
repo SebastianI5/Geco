@@ -1,28 +1,16 @@
 
 package com.eng.geco;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.postgresql.util.PGobject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -30,9 +18,6 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @CrossOrigin
 public class DealerController extends AbstractController{
-
-    @Autowired
-    NamedParameterJdbcOperations template;
 
     private static Map<String, String> queryConditions = Map.of("description_like",
             " and lower( description ) like lower( '%'||:description_like||'%')", "brand_id",
@@ -59,8 +44,8 @@ public class DealerController extends AbstractController{
 
     @GetMapping("/dealers/{id}")
     public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
-        
-        
+
+
         Map<String, Object> dealer = super.get(id, headers);
         String query = "select * from geco.contracts_" + tenantId(User.user(headers)) + " where dealer_id = :id ";
         dealer.put("contracts", template.queryForList(query, Map.of("id", id))
@@ -85,10 +70,10 @@ public class DealerController extends AbstractController{
 		return ordering;
 	}
 
-    
 
-    
 
-    
+
+
+
 
 }

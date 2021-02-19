@@ -9,15 +9,12 @@ import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class AbstractController {
-	
+
     @Autowired
     NamedParameterJdbcOperations template;
 
@@ -41,29 +38,29 @@ public abstract class AbstractController {
         System.out.println("sql: " + sql);
         return template.queryForList(sql, parameters).stream().map(e -> normalize(e)).collect(Collectors.toList());
     }
-	
+
 	public Map<String, Object> get(String id, Map<String, String> headers) {
         List<Map<String, Object>> res = list(Map.of("id", id), 0L, 1L, "id", "asc", headers);
         if (res.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity " + id + " not found");
         }
-        
+
         return res.get(0);
     }
-	
+
 	protected abstract String table();
 	protected abstract Map<String, String> conditions();
 	protected abstract Map<String, String> ordering();
-	
+
 	public String tenantId(User user) {
 		return "geco";
 	}
-	
+
 	private String getOrderByString(String sort, String direction) {
         String dir = List.of("asc", "desc").contains(direction.toLowerCase()) ? direction : "asc";
         return ordering().containsKey(sort) ? ordering().get(sort) + " " + dir : " id " + dir;
     }
-	
+
 	protected Map<String, Object> normalize(Map<String, Object> input) {
         Map<String, Object> result = new HashMap<>();
         input.forEach((k, v) -> {
@@ -76,7 +73,7 @@ public abstract class AbstractController {
         });
         return result;
     }
-	
+
 	private Object parseJson(String input) {
         ObjectMapper om = new ObjectMapper();
         try {
