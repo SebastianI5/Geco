@@ -43,11 +43,11 @@ export class BoxComponent implements OnInit {
       classes: ""
     },{
       label: "action",
-      actions: [{action: (row) => this.remove_cover(row.id), icon: "delete", class:"red"},
-                {action: (row) => console.log(row.id), icon: "warning_amber", class:"orange"}],
+      actions: [ {action: (row) => this.remove_cover(row.id), icon: "delete", class:"red"}
+                ],
       classes: ""
     }]
-  };  
+  };
 
   params = {}
 
@@ -79,7 +79,7 @@ export class BoxComponent implements OnInit {
   }
 
   async remove_cover(id: string){
-    await this.c.delete(id);
+    await this.c.put( id, null);
     await this.bus.publish(RELOAD_EVENT);
   }
 

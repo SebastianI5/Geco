@@ -3,6 +3,7 @@ package com.eng.geco;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,8 @@ public class CoversController extends AbstractController{
 
 
 
-    private static Map<String, String> queryConditions = Map.of("id"," and id = :id",
+    private static Map<String, String> queryConditions = Map.of(
+            "id"," and id = :id",
     		"box_id", " and box_id = :box_id",
     		"box_id_null", " and box_id is null",
     		"market", " and market = :market",
@@ -55,27 +57,16 @@ public class CoversController extends AbstractController{
     public Map<String, Object> put(@PathVariable String id,
     		@RequestBody Map<String, String> body,
     		@RequestHeader Map<String, String> headers) {
-
         String sql = "update geco.covers_geco set box_id=:box_id where id=:id";
-        return update(sql, id, body, headers);
-    }
-
-
-    @DeleteMapping("/covers/{id}")
-    public Map<String, Object> delete(@PathVariable String id,@RequestHeader Map<String, String> headers){
-
-        String sql = "update geco.covers_geco set box_id = NULL where id=:id";
-        return update(sql, id, Map.of("box_id", "v1"), headers);
-    }
-
-
-
-    private Map<String, Object> update(String sql , String id , Map<String, String> body ,Map<String, String> headers ){
         Map<String, Object> cover = get(id, headers);
-    	String newBoxId = body.get("box_id");
-    	template.update(sql, Map.of("box_id", newBoxId, "id", cover.get("id")));
+        Map<String, Object> params = new HashMap<>();
+        params.put("box_id", body.get("box_id"));
+        params.put("id", cover.get("id"));
+    	template.update(sql, params);
     	return get(id, headers);
     }
+
+
 
 
 	@Override

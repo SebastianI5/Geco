@@ -5,10 +5,10 @@
         <span mat-line>Service {{e.service}}</span>
         <span mat-line>Brand {{e.brand}}</span>
         <span mat-line>Dealer {{e.dealer_id}}</span>
-        </a>    
+        </a>
     </mat-nav-list> -->
             <table class="mat-table" style="width: 100%;" >
-                <tr class="mat-header-row">
+                <tr class="mat-header-row" >
                     <th class="mat-header-cell" >
                         ID
                     </th>
@@ -25,27 +25,26 @@
                         Dealer
                     </th>
                 </tr>
-                <tr *ngFor="let e of list" (click)="add_cover(e)">
+                <tr *ngFor="let e of list" (click)="add_cover(e)" class="mat-row" style="cursor: pointer;" >
                     <td class="mat-cell format">
                         {{e.id}}
                     </td>
                     <td class="mat-cell">
                         {{e.market}}
                     </td>
-                    
+
                     <td class="mat-cell">
                         {{e.service}}
                     </td>
-                    
+
                     <td class="mat-cell">
                         {{e.brand}}
                     </td>
-                    
+
                     <td class="mat-cell">
                         {{e.dealer_id}}
                     </td>
                 </tr>
             </table>
-      
 
-  
+

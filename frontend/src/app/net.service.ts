@@ -41,8 +41,8 @@ export class NetService {
     return this.http.get<any>(base_url + '/' + url + '/' + id, { headers: headers}).toPromise();
   }
 
-  delete(url: string, id: string) {
+  put(url: string, id: string, body: any) {
     let headers = new HttpHeaders().set("x-authorization", localStorage.getItem("access_token"));
-    return this.http.delete<any>(base_url + '/' + url + '/' + id, { headers: headers}).toPromise();
+    return this.http.put<any>(base_url + '/' + url + '/' + id, body,  { headers: headers}).toPromise();
   }
 }
