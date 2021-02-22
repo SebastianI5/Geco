@@ -13,14 +13,16 @@ public class Util {
 
 
     public static void debug(Object message ){
-        System.out.printf("%s [DEBUG] %s\n", Instant.now(), message.toString() );
+        System.out.printf("%s [DEBUG] %s \n", Instant.now(), message.toString() );
     }
 
     public static void info(Object message ){
-        System.out.printf("%s [INFO ] %s\n", Instant.now(), message.toString() );
+        System.out.printf("%s [INFO ] %s \n", Instant.now(), message.toString() );
     }
 
     public static void error(Object message ){
-        System.out.printf("%s [ERROR] %s\n", Instant.now(), message.toString() );
+        System.out.printf("%s [ERROR] %s \n", Instant.now(), message.toString() );
     }
+
+    private Util(){}
 }

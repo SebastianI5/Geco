@@ -53,19 +53,26 @@ public class CoversController extends AbstractController{
     @Override
      public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
 
-        return super.get(id, headers);
+        Map<String, Object> result =  super.get(id, headers);
+        if (result.get("document_types") != null ){
+            result.put("document_types", parseJson(result.get( "document_types").toString() ));
+        }
+        return result;
     }
 
 
     @PutMapping("/covers/{id}")
     public Map<String, Object> put(@PathVariable String id,
-    		@RequestBody Map<String, String> body,
+    		@RequestBody Map<String, Object> body,
     		@RequestHeader Map<String, String> headers) {
-        String sql = "update geco.covers_geco set box_id=:box_id where id=:id";
+        String sql = "update geco.covers_geco set box_id=:box_id , document_types=to_json(:document_types) where id=:id";
         Map<String, Object> cover = get(id, headers);
         Map<String, Object> params = new HashMap<>();
-        params.put("box_id", body.get("box_id"));
+
+        params.put("box_id", body.get("box_id") );
+        params.put("document_types" , stringfy(body.get("document_types") ));
         params.put("id", cover.get("id"));
+
     	template.update(sql, params);
     	return get(id, headers);
     }

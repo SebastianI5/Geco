@@ -34,6 +34,7 @@ public class DealerController extends AbstractController{
             "description ");
 
     @GetMapping("/dealers")
+    @Override
     public List<Map<String, Object>> list(@RequestParam Map<String, String> parameters,
             @RequestParam(defaultValue = "0") Long offset, @RequestParam(defaultValue = "10") Long limit,
             @RequestParam(defaultValue = "id") String sort, @RequestParam(defaultValue = "asc") String direction,
@@ -43,8 +44,8 @@ public class DealerController extends AbstractController{
     }
 
     @GetMapping("/dealers/{id}")
+    @Override
     public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
-
 
         Map<String, Object> dealer = super.get(id, headers);
         String query = "select * from geco.contracts_" +  User.user(headers).tenant_id + " where dealer_id = :id ";

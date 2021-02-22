@@ -73,10 +73,19 @@ public abstract class AbstractController {
         return result;
     }
 
-	private Object parseJson(String input) {
+	protected Object parseJson(String input) {
         ObjectMapper om = new ObjectMapper();
         try {
             return om.readValue(input, Object.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected String stringfy(Object input){
+        ObjectMapper om = new ObjectMapper();
+        try {
+            return om.writeValueAsString(input);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

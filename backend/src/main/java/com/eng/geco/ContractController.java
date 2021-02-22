@@ -18,6 +18,7 @@ public class ContractController extends AbstractController {
 	 private static Map<String, String> ordering = Map.of("id", "id ");
 
 	 @GetMapping("/contracts")
+     @Override
 	 public List<Map<String, Object>> list(@RequestParam Map<String, String> parameters,
             @RequestParam(defaultValue = "0") Long offset, @RequestParam(defaultValue = "10") Long limit,
             @RequestParam(defaultValue = "id") String sort, @RequestParam(defaultValue = "asc") String direction,
