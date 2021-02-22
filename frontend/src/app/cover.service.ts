@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NetService } from './net.service';
-import { base_url } from './util';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +20,9 @@ export class CoverService {
 
   put(cover_id: string, box_id: string){
      return this.net.put('covers', cover_id, {'box_id': box_id} );
+  }
+
+  post(body : any){
+    return this.net.post('covers', body);
   }
 }

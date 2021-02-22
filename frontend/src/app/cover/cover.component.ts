@@ -25,16 +25,16 @@ export class CoverComponent implements OnInit {
       limit: 1000,
       available: true
     }
-    this.cover = {
-      dealer_id: this.a.snapshot.queryParams.dealer_id,
-      brand: this.a.snapshot.queryParams.brand,
-      service: this.a.snapshot.queryParams.service,
-      market: this.a.snapshot.queryParams.market,
-    }
+
     let covers = await this.c.list(params);
+    this.cover = covers.length >= 1 ? covers[0] : await this.create_cover(params) ;
+
+
     console.log(covers);
   }
 
-
+  async create_cover(cover : any ) {
+    return this.c.post(cover);
+  }
 
 }

@@ -14,6 +14,8 @@ public class User {
 
     public String given_name;
     public String family_name;
+    public String name ;
+    public String tenant_id;
 
     public User withGivenName(String given_name){
         this.given_name = given_name ;
@@ -24,7 +26,17 @@ public class User {
         this.family_name = family_name ;
         return this;
     }
-    
+
+    public User withName(String name ){
+        this.name = name ;
+        return this;
+    }
+
+    public User withTenantId(String tenant_id ){
+        this.tenant_id = tenant_id ;
+        return this;
+    }
+
     public static User user(Map<String, String> headers) {
     	String accessToken = headers.get("x-authorization");
         if (accessToken == null) {
@@ -37,11 +49,16 @@ public class User {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                         "Header x-authorization contains expired token");
             }
-            return new User().withFamilyName(jwt.getClaim("family_name").asString())
-                    .withGivenName(jwt.getClaim("given_name").asString());
+            return new User()
+                    .withFamilyName(jwt.getClaim("family_name").asString())
+                    .withGivenName(jwt.getClaim("given_name").asString())
+                    .withName(jwt.getClaim("name").asString())
+                    .withTenantId("geco");
         } catch (JWTDecodeException exception) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Header x-authorization not valid");
         }
     }
+
+    private User(){}
 
 }

@@ -45,4 +45,11 @@ export class NetService {
     let headers = new HttpHeaders().set("x-authorization", localStorage.getItem("access_token"));
     return this.http.put<any>(base_url + '/' + url + '/' + id, body,  { headers: headers}).toPromise();
   }
+
+
+  post(url : string , body: any){
+    let headers = new HttpHeaders().set("x-authorization", localStorage.getItem("access_token"));
+    return this.http.post<any>(base_url + '/' + url, body,  { headers: headers}).toPromise();
+  }
+
 }

@@ -4,7 +4,7 @@
         <th mat-header-cell *matHeaderCellDef style="width: 1%;" class="format"> {{"id" | t}} </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
-    
+
     <ng-container matColumnDef="brand">
         <th mat-header-cell *matHeaderCellDef style="width: 1%;"class="format" > {{"brand" | t}} </th>
         <td mat-cell *matCellDef="let element"> {{element.brand_id}} </td>
@@ -12,11 +12,11 @@
 
     <ng-container matColumnDef="services">
         <th mat-header-cell *matHeaderCellDef> {{"services" | t}} </th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
             <mat-chip-list>
-                <mat-chip *ngFor="let e of element.services" 
-                        routerLink="/covers/_new" 
-                        [queryParams]="{dealer_id: dealer.id, market: dealer.market, brand: element.brand_id, service: e}">
+                <mat-chip *ngFor="let e of element.services"
+                        routerLink="/covers/_new"
+                        [queryParams]="{dealer_id: dealer.id, market: dealer.market, brand_id: element.brand_id, service_id: e}">
                     {{"service_" + e | t}}
                 </mat-chip>
             </mat-chip-list>

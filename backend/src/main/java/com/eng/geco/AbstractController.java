@@ -3,6 +3,7 @@ package com.eng.geco;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.postgresql.util.PGobject;
@@ -53,7 +54,7 @@ public abstract class AbstractController {
 	protected abstract Map<String, String> ordering();
 
 	public String tenantId(User user) {
-		return "geco";
+		return user.tenant_id;
 	}
 
 	private String getOrderByString(String sort, String direction) {
@@ -82,4 +83,15 @@ public abstract class AbstractController {
             throw new RuntimeException(e);
         }
     }
+
+    protected String insert( Set<String> fields , String tenantId , String table ){
+
+        String fieldList = fields.stream().collect(Collectors.joining(","));
+        String paramList = fields
+            .stream()
+            .map(e -> ":"+ e)
+            .collect(Collectors.joining(","));
+        return String.format("INSERT INTO geco.%s_%s (%s) VALUES(%s)", table, tenantId , fieldList , paramList);
+    }
+
 }

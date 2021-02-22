@@ -3,11 +3,13 @@ package com.eng.geco;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.time.Instant;
 import java.util.HashMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -37,6 +39,7 @@ public class CoversController extends AbstractController{
 	private static Map<String, String> ordering = Map.of("id", "id ");
 
     @GetMapping("/covers")
+    @Override
     public List<Map<String, Object>> list(@RequestParam Map<String, String> parameters,
             @RequestParam(defaultValue = "0") Long offset, @RequestParam(defaultValue = "10") Long limit,
             @RequestParam(defaultValue = "id") String sort, @RequestParam(defaultValue = "asc") String direction,
@@ -46,8 +49,8 @@ public class CoversController extends AbstractController{
     }
 
     @GetMapping("/covers/{id}")
-    //@RequestMapping(consumes = "application/json", produces = "application/json")
-    public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
+    @Override
+     public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
 
         return super.get(id, headers);
     }
@@ -67,7 +70,22 @@ public class CoversController extends AbstractController{
     }
 
 
-
+    @PostMapping("/covers")
+    public Map<String, Object> post( @RequestBody Map<String, String> body, @RequestHeader Map<String, String> headers){
+        Map<String, Object> cover = new HashMap<>();
+        String id = UUID.randomUUID().toString();
+        cover.put("id", id);
+        cover.put("dealer_id", body.get("dealer_id"));
+        cover.put("status", "FRONTE.NEW");
+        cover.put("username", User.user(headers).name );
+        cover.put("created_at", Instant.now().toString());
+        cover.put("market", body.get("market"));
+        cover.put("service_id", body.get("service_id"));
+        cover.put("brand_id", body.get("brand_id"));
+        String sql = insert(cover.keySet(), User.user(headers).tenant_id, "covers" );
+        template.update( sql , cover);
+        return get(id , headers);
+    }
 
 	@Override
 	protected String table() {
@@ -83,6 +101,8 @@ public class CoversController extends AbstractController{
 	protected Map<String, String> ordering() {
 		return ordering;
 	}
+
+
 
 
 
