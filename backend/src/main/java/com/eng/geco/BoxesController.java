@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- */
+
 @RestController
 @CrossOrigin
 public class BoxesController extends AbstractController{

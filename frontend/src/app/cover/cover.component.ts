@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoverService } from '../cover.service';
 import { user } from 'src/app/util';
 
@@ -13,9 +13,22 @@ export class CoverComponent implements OnInit {
   cover: any = {};
 
 
-  constructor(private a: ActivatedRoute, private c: CoverService) { }
+  constructor(
+    private a: ActivatedRoute,
+     private c: CoverService,
+     private router : Router
+     ) { }
 
   async ngOnInit() {
+    if (this.a.snapshot.params.id == "_new") {
+      this.new_cover()
+    }
+    else {
+      this.cover = await this.c.get(this.a.snapshot.params.id)
+    }
+  }
+
+  async new_cover(){
     let params = {
       dealer_id: this.a.snapshot.queryParams.dealer_id,
       brand_id: this.a.snapshot.queryParams.brand_id,
@@ -25,16 +38,10 @@ export class CoverComponent implements OnInit {
       limit: 1000,
       available: true
     }
-
     let covers = await this.c.list(params);
-    this.cover = covers.length >= 1 ? covers[0] : await this.create_cover(params) ;
+    this.cover = covers.length >= 1 ? covers[0] : await this.c.post(params); ;
+    this.router.navigate(['/covers/' + this.cover.id ])
 
-
-    console.log(covers);
-  }
-
-  async create_cover(cover : any ) {
-    return this.c.post(cover);
   }
 
 }

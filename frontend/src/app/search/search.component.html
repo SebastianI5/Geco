@@ -19,7 +19,7 @@
 
 
     <tr mat-header-row *matHeaderRowDef="table_fields()"></tr>
-    <tr mat-row *matRowDef="let row; columns: table_fields()" (click)="navigate(row)"></tr>
+    <tr mat-row style="cursor: pointer;" *matRowDef="let row; columns: table_fields()" (click)="navigate(row)"></tr>
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="20" style="text-align: center;">{{"no_data_found" | t}}</td>
     </tr>

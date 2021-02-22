@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+import static com.eng.geco.Util.* ;
 import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +26,9 @@ public abstract class AbstractController {
 
         User user = User.user(headers);
 
-        System.out.println("User logged : " + user.given_name + " " + user.family_name);
+        debug("User logged : " + user.given_name + " " + user.family_name);
 
-        String sql = "select COUNT(0) OVER (PARTITION BY null) as record_count , * from geco."+ table() + "_" + tenantId(user) + " where 1=1 "
+        String sql = "select COUNT(0) OVER (PARTITION BY null) as record_count , * from geco."+ table() + "_" + user.tenant_id + " where 1=1 "
                 + conditions()
                 .entrySet()
                 .stream()
@@ -36,7 +36,7 @@ public abstract class AbstractController {
                 .map(e -> e.getValue()).collect(Collectors.joining(" "))
                 + " order by " + getOrderByString(sort, direction) + " limit " + limit + " offset " + offset;
 
-        System.out.println("sql: " + sql);
+        debug( sql);
         return template.queryForList(sql, parameters).stream().map(e -> normalize(e)).collect(Collectors.toList());
     }
 
@@ -53,9 +53,7 @@ public abstract class AbstractController {
 	protected abstract Map<String, String> conditions();
 	protected abstract Map<String, String> ordering();
 
-	public String tenantId(User user) {
-		return user.tenant_id;
-	}
+
 
 	private String getOrderByString(String sort, String direction) {
         String dir = List.of("asc", "desc").contains(direction.toLowerCase()) ? direction : "asc";

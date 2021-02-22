@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.time.Instant;
 import java.util.HashMap;
+import static com.eng.geco.Util.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
  import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,6 +84,7 @@ public class CoversController extends AbstractController{
         cover.put("service_id", body.get("service_id"));
         cover.put("brand_id", body.get("brand_id"));
         String sql = insert(cover.keySet(), User.user(headers).tenant_id, "covers" );
+        debug( sql );
         template.update( sql , cover);
         return get(id , headers);
     }

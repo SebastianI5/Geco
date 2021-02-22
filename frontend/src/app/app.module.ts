@@ -92,11 +92,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatBottomSheetModule,
     MatSidenavModule
   ],
-  providers: [{
+  providers: [
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: Interceptor,
     multi: true
-  }, ErrorsService, DatePipe, TPipe, MatPaginatorIntl],
+  },
+   ErrorsService, DatePipe, TPipe, MatPaginatorIntl],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
