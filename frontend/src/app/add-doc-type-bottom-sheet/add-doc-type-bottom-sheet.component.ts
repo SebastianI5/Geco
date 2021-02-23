@@ -19,8 +19,8 @@ export class AddDocTypeBottomSheetComponent implements OnInit{
   categories: any[];
   selected_category: string;
 
-  constructor(private d: DocumentTypesService, 
-    private c: CoverService, 
+  constructor(private d: DocumentTypesService,
+    private c: CoverService,
     private date: DatePipe,
     private _bottomSheetRef: MatBottomSheetRef<AddDocTypeBottomSheetComponent>,
     private bus: BusService,
@@ -35,12 +35,15 @@ export class AddDocTypeBottomSheetComponent implements OnInit{
     this.categories = this.list
       .map(e => e.category)
       .reduce((r, e) => {r.add(e); return r}, new Set())
-    
+
   }
 
   async add_doc_type(doc_type){
-    console.log(this.data);
-    await this.c.put(doc_type.document_types, this.data);
+     if (! this.data.doc_types ){
+      this.data.doc_types = []
+    }
+    this.data.doc_types.push(doc_type)
+    await this.c.put(this.data.id, {"document_types":this.data.doc_types});
     await this.bus.publish(RELOAD_EVENT);
     this._bottomSheetRef.dismiss();
   }

@@ -18,7 +18,7 @@ export class CoverComponent implements OnInit {
 
 
   cover: any = {};
-  document_types: any[];
+  document_types: any[] = [];
 
   config: any = {
     search_params: [],
@@ -27,12 +27,12 @@ export class CoverComponent implements OnInit {
       field: "id",
       classes: ""
     },{
-      label: "service",
-      field: "service_id",
+      label: "description",
+      field: "description",
       classes: ""
     },{
-      label: "type",
-      field: "type",
+      label: "category",
+      field: "category",
       classes: ""
     },{
       label: "sort",
@@ -63,9 +63,10 @@ export class CoverComponent implements OnInit {
     private bus: BusService
     ) { }
 
-  
+
 
   async ngOnInit() {
+
     if (this.a.snapshot.params.id == "_new") {
       this.new_cover();
     }
@@ -97,17 +98,19 @@ export class CoverComponent implements OnInit {
   navigate(){}
 
   async load_document_types(){
-    return this.document_types = (await this.c.get(this.a.snapshot.params.id)).document_types;
+   this.document_types = (await this.c.get(this.a.snapshot.params.id)).document_types;
+   return this.document_types;
   }
 
   openBottomSheet(){
     this.bs.open(AddDocTypeBottomSheetComponent, {
-      data: {"id": this.a.snapshot.params.id, "doc_types": this.document_types}
+      data: {"id": this.a.snapshot.params.id, "doc_types": this.document_types }
     });
   }
 
   async remove_doc_type(id: string){
-    await this.c.put( id, null);
+    this.document_types = this.document_types.filter(d => d.id != id  );
+    await this.c.put( this.a.snapshot.params.id, {"document_types": this.document_types } );
     await this.bus.publish(RELOAD_EVENT);
   }
 

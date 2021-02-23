@@ -13,7 +13,7 @@ export class AddCoverBottomSheetComponent implements OnInit{
 
   list: any[];
 
-  constructor(private c: CoverService, 
+  constructor(private c: CoverService,
     private date: DatePipe,
     private _bottomSheetRef: MatBottomSheetRef<AddCoverBottomSheetComponent>,
     private bus: BusService,
@@ -28,7 +28,7 @@ export class AddCoverBottomSheetComponent implements OnInit{
   }
 
   async add_cover(cover){
-    await this.c.put(cover.id, this.data);
+    await this.c.put(cover.id, {"box_id":this.data} );
     await this.bus.publish(RELOAD_EVENT);
     this._bottomSheetRef.dismiss();
   }

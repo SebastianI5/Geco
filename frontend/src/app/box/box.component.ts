@@ -79,7 +79,7 @@ export class BoxComponent implements OnInit {
   }
 
   async remove_cover(id: string){
-    await this.c.put( id, null);
+    await this.c.put( id, {"box_id":null});
     await this.bus.publish(RELOAD_EVENT);
   }
 

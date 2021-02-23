@@ -18,8 +18,8 @@ export class CoverService {
     return this.net.get('covers', id);
   }
 
-  put(cover_id: string, box_id: string){
-     return this.net.put('covers', cover_id, {'box_id': box_id} );
+  put(cover_id: string, payload: any){
+     return this.net.put('covers', cover_id, payload );
   }
 
   post(body : any){
