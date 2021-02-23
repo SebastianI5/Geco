@@ -44,6 +44,8 @@ import { CoverComponent } from './cover/cover.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddDocTypeBottomSheetComponent } from './add-doc-type-bottom-sheet/add-doc-type-bottom-sheet.component';
+import { FilterPipe } from './filter.pipe';
 
 
 @NgModule({
@@ -65,7 +67,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AddCoverBottomSheetComponent,
     CoverComponent,
     SidenavComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddDocTypeBottomSheetComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

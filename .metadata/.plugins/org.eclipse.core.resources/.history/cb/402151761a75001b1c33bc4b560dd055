@@ -11,4 +11,4 @@ server.error.include-exception=false
 
 spring.datasource.url=${db_url:jdbc:postgresql://localhost:5432/postgres}
 spring.datasource.username=${db_user:postgres}
-spring.datasource.password=${db_password:root}
+spring.datasource.password=${db_password:password}

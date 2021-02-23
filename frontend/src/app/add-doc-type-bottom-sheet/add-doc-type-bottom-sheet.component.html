@@ -1,0 +1,35 @@
+<mat-form-field class="example-full-width" style="width: 100%">
+    <input matInput placeholder="Doc" [(ngModel)]="x">
+  </mat-form-field>
+<table class="mat-table" style="width: 100%;" >
+    <tr class="mat-header-row" >
+        <th class="mat-header-cell" >
+            ID
+        </th>
+        <th class="mat-header-cell" >
+            Description
+        </th>
+        <th class="mat-header-cell" >
+            Category
+        </th>
+        <th class="mat-header-cell" >
+            Attachment
+        </th>
+    </tr>
+    <tr *ngFor="let e of list | filter:x:['id','description']" (click)="add_cover(e)" class="mat-row" style="cursor: pointer;" >
+        <td class="mat-cell format">
+            {{e.id}}
+        </td>
+        <td class="mat-cell">
+            {{e.description}}
+        </td>
+
+        <td class="mat-cell">
+            {{e.category}}
+        </td>
+
+        <td class="mat-cell">
+            {{e.attachment}}
+        </td>
+    </tr>
+</table>
