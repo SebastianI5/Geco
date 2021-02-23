@@ -13,15 +13,25 @@ public class Util {
 
 
     public static void debug(Object message ){
-        System.out.printf("%s [DEBUG] %s \n", Instant.now(), message.toString() );
+        log("DEBUG", message);
     }
 
     public static void info(Object message ){
-        System.out.printf("%s [INFO ] %s \n", Instant.now(), message.toString() );
+        log("INFO", message);
     }
 
     public static void error(Object message ){
-        System.out.printf("%s [ERROR] %s \n", Instant.now(), message.toString() );
+        log("ERROR", message) ;
+   }
+
+
+    private static void log(String level , Object message){
+        try{
+            throw new RuntimeException();
+        }
+        catch (Exception e ){
+            System.out.printf("%s [%5s] %s.%s:%d - %s \n", Instant.now(),  level ,  e.getStackTrace()[2].getClassName() , e.getStackTrace()[2].getMethodName() , e.getStackTrace()[2].getLineNumber() , message );
+        }
     }
 
     private Util(){}

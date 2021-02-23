@@ -4,11 +4,12 @@ package com.eng.geco;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import java.time.Instant;
 import java.util.HashMap;
 import static com.eng.geco.Util.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
- import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,22 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin
-public class CoversController extends AbstractController{
+public class CoversController extends AbstractController {
 
+    private static Map<String, String> queryConditions = Map.of("id", " and id = :id", "box_id",
+            " and box_id = :box_id", "box_id_null", " and box_id is null", "market", " and market = :market",
+            "service_id", " and service_id = :service_id", "brand_id", " and brand_id = :brand_id", "dealer",
+            " and dealer = :dealer", "username", " and username = :username", "available",
+            " and not exists (select null from geco.boxes_geco b where b.id = box_id and b.status <> 'SCATOLA.NEW')");
 
-
-    private static Map<String, String> queryConditions = Map.of(
-            "id"," and id = :id",
-    		"box_id", " and box_id = :box_id",
-    		"box_id_null", " and box_id is null",
-    		"market", " and market = :market",
-    		"service_id", " and service_id = :service_id",
-    		"brand_id", " and brand_id = :brand_id",
-    		"dealer", " and dealer = :dealer",
-    		"username", " and username = :username",
-    		"available", " and not exists (select null from geco.boxes_geco b where b.id = box_id and b.status <> 'SCATOLA.NEW')");
-
-	private static Map<String, String> ordering = Map.of("id", "id ");
+    private static Map<String, String> ordering = Map.of("id", "id ");
 
     @GetMapping("/covers")
     @Override
@@ -51,28 +45,28 @@ public class CoversController extends AbstractController{
 
     @GetMapping("/covers/{id}")
     @Override
-     public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
+    public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
 
-        Map<String, Object> result =  super.get(id, headers);
-        if (result.get("document_types") != null ){
-            result.put("document_types", parseJson(result.get( "document_types").toString() ));
-        }
-        return result;
+        return  super.get(id, headers);
+
     }
 
-
     @PutMapping("/covers/{id}")
-    public Map<String, Object> put(@PathVariable String id,
-    		@RequestBody Map<String, Object> body,
-    		@RequestHeader Map<String, String> headers) {
-        String sql = "update geco.covers_geco set box_id=:box_id , document_types=to_json(:document_types) where id=:id";
+    public Map<String, Object> put(@PathVariable String id, @RequestBody Map<String, Object> body,
+            @RequestHeader Map<String, String> headers) {
+
         Map<String, Object> cover = get(id, headers);
         Map<String, Object> params = new HashMap<>();
-
-        params.put("box_id", body.get("box_id") );
-        params.put("document_types" , stringfy(body.get("document_types") ));
+        Map<String, String> types  = new HashMap<>();
+        params.put("box_id", body.get("box_id"));
+        types.put("box_id", "varchar");
+        params.put("document_types", stringfy(body.get("document_types")));
+        types.put("document_types", "json");
         params.put("id", cover.get("id"));
 
+        String sql = update(types, User.user(headers).tenant_id , table() , "id" );
+
+        debug(sql);
     	template.update(sql, params);
     	return get(id, headers);
     }
@@ -110,12 +104,6 @@ public class CoversController extends AbstractController{
 	protected Map<String, String> ordering() {
 		return ordering;
 	}
-
-
-
-
-
-
 
 
 

@@ -84,7 +84,7 @@ public abstract class AbstractController {
 
     protected String stringfy(Object input){
         ObjectMapper om = new ObjectMapper();
-        try {
+         try {
             return om.writeValueAsString(input);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -99,6 +99,16 @@ public abstract class AbstractController {
             .map(e -> ":"+ e)
             .collect(Collectors.joining(","));
         return String.format("INSERT INTO geco.%s_%s (%s) VALUES(%s)", table, tenantId , fieldList , paramList);
+    }
+
+
+    protected String update(Map<String, String> params , String tenantId , String table ,String key ){
+
+        String paramList = params.entrySet().stream()
+        .filter(e -> ! e.getKey().equals(key))
+        .map(e -> e.getKey() + "=:" + e.getKey() + "::" + e.getValue() )
+        .collect(Collectors.joining(","));
+        return String.format("update geco.%s_%s set %s where %s",  table, tenantId, paramList, key + "=:" + key );
     }
 
 }
