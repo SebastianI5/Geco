@@ -1,6 +1,20 @@
-<mat-form-field class="example-full-width" style="width: 100%">
+<pre *ngIf="list">{{(list | filter:x:['id','description']).length}}</pre>
+<pre>{{selected_category}}</pre>
+
+
+<h2>{{"doc_type_selection" | t}}</h2>
+<div>
+<mat-form-field class="example-full-width" style="width: 65%">
     <input matInput placeholder="Doc" [(ngModel)]="x">
   </mat-form-field>
+  <mat-form-field style="padding-left: 2em;">
+    <mat-select [(ngModel)]="selected_category" placeholder="Category">
+        <mat-option *ngFor="let e of categories" [value]="e">
+        {{e | t}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
 <table class="mat-table" style="width: 100%;" >
     <tr class="mat-header-row" >
         <th class="mat-header-cell" >
@@ -16,7 +30,10 @@
             Attachment
         </th>
     </tr>
-    <tr *ngFor="let e of list | filter:x:['id','description']" (click)="add_cover(e)" class="mat-row" style="cursor: pointer;" >
+    <tr *ngFor="let e of list | filter:selected_category:['category'] | filter:x:['id','description'] | limit:6" 
+            (click)="add_doc_type(e)" 
+            class="mat-row" 
+            style="cursor: pointer;" >
         <td class="mat-cell format">
             {{e.id}}
         </td>

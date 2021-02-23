@@ -18,6 +18,7 @@ export class CoverComponent implements OnInit {
 
 
   cover: any = {};
+  document_types: any[];
 
   config: any = {
     search_params: [],
@@ -96,12 +97,12 @@ export class CoverComponent implements OnInit {
   navigate(){}
 
   async load_document_types(){
-    return (await this.c.get(this.a.snapshot.params.id)).document_types;
+    return this.document_types = (await this.c.get(this.a.snapshot.params.id)).document_types;
   }
 
   openBottomSheet(){
     this.bs.open(AddDocTypeBottomSheetComponent, {
-      data: this.a.snapshot.params.id
+      data: {"id": this.a.snapshot.params.id, "doc_types": this.document_types}
     });
   }
 

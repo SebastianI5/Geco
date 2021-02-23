@@ -46,6 +46,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddDocTypeBottomSheetComponent } from './add-doc-type-bottom-sheet/add-doc-type-bottom-sheet.component';
 import { FilterPipe } from './filter.pipe';
+import { LimitPipe } from './limit.pipe';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { FilterPipe } from './filter.pipe';
     SidenavComponent,
     DashboardComponent,
     AddDocTypeBottomSheetComponent,
-    FilterPipe
+    FilterPipe,
+    LimitPipe
   ],
   imports: [
     BrowserModule,

@@ -12,8 +12,12 @@ import { DocumentTypesService } from '../document-types.service';
 })
 export class AddDocTypeBottomSheetComponent implements OnInit{
 
+
+
   list: any[];
   x: string;
+  categories: any[];
+  selected_category: string;
 
   constructor(private d: DocumentTypesService, 
     private c: CoverService, 
@@ -28,10 +32,15 @@ export class AddDocTypeBottomSheetComponent implements OnInit{
 
   async load() {
     this.list = await this.d.list({box_id_null: true, limit: 1000});
+    this.categories = this.list
+      .map(e => e.category)
+      .reduce((r, e) => {r.add(e); return r}, new Set())
+    
   }
 
-  async add_cover(cover){
-    await this.c.put(cover.document_types, this.data);
+  async add_doc_type(doc_type){
+    console.log(this.data);
+    await this.c.put(doc_type.document_types, this.data);
     await this.bus.publish(RELOAD_EVENT);
     this._bottomSheetRef.dismiss();
   }

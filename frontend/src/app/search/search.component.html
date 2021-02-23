@@ -26,7 +26,7 @@
   </table>
 
   <mat-paginator [length]="list[0]?.record_count"
-  *ngIf="list[0]?.record_count>0"
+  *ngIf="list && list[0]?.record_count>0"
   [pageSize]="common_params.limit"
   [pageSizeOptions]="[2, 5, 10, 20]"
   [pageIndex]="common_params.offset/common_params.limit"

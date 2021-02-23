@@ -17,10 +17,10 @@ export class DocumentTypesService {
   }
 
   put(cover_id: string, box_id: string){
-     return this.net.put('covers', cover_id, {'box_id': box_id} );
+     return this.net.put('doctypes', cover_id, {'box_id': box_id} );
   }
 
   post(body : any){
-    return this.net.post('covers', body);
+    return this.net.post('doctypes', body);
   }
 }
