@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoverService } from '../cover.service';
 import { user } from 'src/app/util';
-import { DatePipe } from '@angular/common';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BusService, RELOAD_EVENT } from '../bus.service';
-import { DocumentTypesService } from '../document-types.service';
 import { AddDocTypeBottomSheetComponent } from '../add-doc-type-bottom-sheet/add-doc-type-bottom-sheet.component';
-import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-cover',
@@ -17,7 +14,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class CoverComponent implements OnInit {
 
 
-  cover: any = {};
+  cover: any = { id: "_new" };
   document_types: any[] = [];
 
   config: any = {
@@ -26,26 +23,26 @@ export class CoverComponent implements OnInit {
       label: "id",
       field: "id",
       classes: ""
-    },{
+    }, {
       label: "description",
       field: "description",
       classes: ""
-    },{
+    }, {
       label: "category",
       field: "category",
       classes: ""
-    },{
+    }, {
       label: "sort",
       field: "sort",
       classes: ""
-    },{
+    }, {
       label: "mandatory",
       field: "mandatory",
       classes: ""
-    },{
+    }, {
       label: "action",
-      actions: [ {action: (row) => this.remove_doc_type(row.id), icon: "delete", class:"red"}
-                ],
+      actions: [{ action: (row) => this.remove_doc_type(row.id), icon: "delete", class: "red" }
+      ],
       classes: ""
     }]
   };
@@ -56,17 +53,15 @@ export class CoverComponent implements OnInit {
   constructor(
     private a: ActivatedRoute,
     private c: CoverService,
-    private d: DocumentTypesService,
-    private router : Router,
-    private date: DatePipe,
+    private router: Router,
     private bs: MatBottomSheet,
     private bus: BusService
-    ) { }
+  ) { }
 
 
 
   async ngOnInit() {
-
+    console.log("caricamento con ", this.a.snapshot.params.id)
     if (this.a.snapshot.params.id == "_new") {
       this.new_cover();
     }
@@ -75,11 +70,11 @@ export class CoverComponent implements OnInit {
     }
   }
 
-  async load(){
+  async load() {
     this.cover = await this.c.get(this.a.snapshot.params.id)
   }
 
-  async new_cover(){
+  async new_cover() {
     let params = {
       dealer_id: this.a.snapshot.queryParams.dealer_id,
       brand_id: this.a.snapshot.queryParams.brand_id,
@@ -90,27 +85,27 @@ export class CoverComponent implements OnInit {
       available: true
     }
     let covers = await this.c.list(params);
-    this.cover = covers.length >= 1 ? covers[0] : await this.c.post(params); ;
-    this.router.navigate(['/covers/' + this.cover.id ])
+    this.cover = covers.length >= 1 ? covers[0] : await this.c.post(params);;
+    this.router.navigate(['/covers/' + this.cover.id])
 
   }
 
-  navigate(){}
+  navigate() { }
 
-  async load_document_types(){
-   this.document_types = (await this.c.get(this.a.snapshot.params.id)).document_types;
-   return this.document_types;
+  async load_document_types() {
+    this.document_types = (await this.c.get(this.a.snapshot.params.id)).document_types;
+    return this.document_types;
   }
 
-  openBottomSheet(){
+  openBottomSheet() {
     this.bs.open(AddDocTypeBottomSheetComponent, {
-      data: {"id": this.a.snapshot.params.id, "doc_types": this.document_types }
+      data: { "id": this.a.snapshot.params.id, "doc_types": this.document_types }
     });
   }
 
-  async remove_doc_type(id: string){
-    this.document_types = this.document_types.filter(d => d.id != id  );
-    await this.c.put( this.a.snapshot.params.id, {"document_types": this.document_types } );
+  async remove_doc_type(id: string) {
+    this.document_types = this.document_types.filter(d => d.id != id);
+    await this.c.put(this.a.snapshot.params.id, { "document_types": this.document_types });
     await this.bus.publish(RELOAD_EVENT);
   }
 
