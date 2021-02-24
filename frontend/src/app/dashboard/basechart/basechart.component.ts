@@ -12,7 +12,7 @@ export class BasechartComponent implements OnInit {
   chart : any ;
 
   @Input() type : string ;
-
+  @Input() section : string ;
 
   constructor(
     private chartService: ChartService
@@ -25,7 +25,7 @@ export class BasechartComponent implements OnInit {
 
 
   async load(){
-    this.chart = await this.chartService.getChart();
+    this.chart = await this.chartService.getChart(this.section);
 
   }
 

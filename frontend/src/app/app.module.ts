@@ -100,8 +100,8 @@ import { BasechartComponent } from './dashboard/basechart/basechart.component';
     MatTooltipModule,
     MatBottomSheetModule,
     MatSidenavModule,
-    ChartsModule
-  ],
+    ChartsModule,
+    ],
   providers: [
     {
     provide: HTTP_INTERCEPTORS,
