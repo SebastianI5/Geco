@@ -25,7 +25,7 @@ export class BasechartComponent implements OnInit {
 
 
   async load(){
-    this.chart = await this.chartService.getChart(this.type)
+    this.chart = await this.chartService.getChart();
 
   }
 
