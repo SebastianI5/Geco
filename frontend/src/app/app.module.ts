@@ -47,6 +47,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddDocTypeBottomSheetComponent } from './add-doc-type-bottom-sheet/add-doc-type-bottom-sheet.component';
 import { FilterPipe } from './filter.pipe';
 import { LimitPipe } from './limit.pipe';
+import { ChartsModule } from 'ng2-charts';
+import { BasechartComponent } from './dashboard/basechart/basechart.component';
 
 
 @NgModule({
@@ -71,7 +73,8 @@ import { LimitPipe } from './limit.pipe';
     DashboardComponent,
     AddDocTypeBottomSheetComponent,
     FilterPipe,
-    LimitPipe
+    LimitPipe,
+    BasechartComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,8 @@ import { LimitPipe } from './limit.pipe';
     MatSnackBarModule,
     MatTooltipModule,
     MatBottomSheetModule,
-    MatSidenavModule
+    MatSidenavModule,
+    ChartsModule
   ],
   providers: [
     {

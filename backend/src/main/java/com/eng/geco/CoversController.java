@@ -46,10 +46,9 @@ public class CoversController extends AbstractController {
     @GetMapping("/covers/{id}")
     @Override
     public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
-
-        return  super.get(id, headers);
-
+        return super.get(id, headers);
     }
+
 
     @PutMapping("/covers/{id}")
     public Map<String, Object> put(@PathVariable String id, @RequestBody Map<String, Object> body,
@@ -57,54 +56,51 @@ public class CoversController extends AbstractController {
 
         Map<String, Object> cover = get(id, headers);
         Map<String, Object> params = new HashMap<>();
-        Map<String, String> types  = new HashMap<>();
+        Map<String, String> types = new HashMap<>();
         params.put("box_id", body.get("box_id"));
         types.put("box_id", "varchar");
         params.put("document_types", stringfy(body.get("document_types")));
         types.put("document_types", "json");
         params.put("id", cover.get("id"));
 
-        String sql = update(types, User.user(headers).tenant_id , table() , "id" );
+        String sql = update(types, User.user(headers).tenant_id, table(), "id");
 
         debug(sql);
-    	template.update(sql, params);
-    	return get(id, headers);
+        template.update(sql, params);
+        return get(id, headers);
     }
 
-
     @PostMapping("/covers")
-    public Map<String, Object> post( @RequestBody Map<String, String> body, @RequestHeader Map<String, String> headers){
+    public Map<String, Object> post(@RequestBody Map<String, String> body, @RequestHeader Map<String, String> headers) {
         Map<String, Object> cover = new HashMap<>();
         String id = UUID.randomUUID().toString();
         cover.put("id", id);
         cover.put("dealer_id", body.get("dealer_id"));
         cover.put("status", "FRONTE.NEW");
-        cover.put("username", User.user(headers).name );
+        cover.put("username", User.user(headers).name);
         cover.put("created_at", Instant.now().toString());
         cover.put("market", body.get("market"));
         cover.put("service_id", body.get("service_id"));
         cover.put("brand_id", body.get("brand_id"));
-        String sql = insert(cover.keySet(), User.user(headers).tenant_id, "covers" );
-        debug( sql );
-        template.update( sql , cover);
-        return get(id , headers);
+        String sql = insert(cover.keySet(), User.user(headers).tenant_id, "covers");
+        debug(sql);
+        template.update(sql, cover);
+        return get(id, headers);
     }
 
-	@Override
-	protected String table() {
-		return "covers";
-	}
+    @Override
+    protected String table() {
+        return "covers";
+    }
 
-	@Override
-	protected Map<String, String> conditions() {
-		return queryConditions;
-	}
+    @Override
+    protected Map<String, String> conditions() {
+        return queryConditions;
+    }
 
-	@Override
-	protected Map<String, String> ordering() {
-		return ordering;
-	}
-
-
+    @Override
+    protected Map<String, String> ordering() {
+        return ordering;
+    }
 
 }
