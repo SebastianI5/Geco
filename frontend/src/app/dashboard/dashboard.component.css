@@ -6,3 +6,27 @@
   right: 0;
   background: #eee;
 }
+
+
+@media screen and (min-width: 1150px){
+  .dashboard-card {
+    width: 40%;
+    margin: 1.5em;
+  }
+}
+
+@media screen and (max-width: 1160px){
+  .dashboard-card {
+    width: 100%;
+    margin: 1.5em;
+  }
+}
+
+
+
+.dashboard-box {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: stretch;
+}

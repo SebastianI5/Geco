@@ -11,9 +11,6 @@ export class ChartService {
   ) { }
 
 
-
-
-
   async getChart() {
     return this.netService.get("dashboard", "");
   }
