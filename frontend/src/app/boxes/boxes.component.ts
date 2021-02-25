@@ -16,11 +16,13 @@ export class BoxesComponent implements OnInit {
     search_params: [{
       label: "id",
       field: "id"
+      
     }],
     table_fields: [{
       label: "box",
       field: "id",
-      classes: ""
+      classes: "",
+      sortable: true
     },{
       label: "status",
       render: (row) => this.t.transform("box_status_" + row.status),
@@ -28,7 +30,8 @@ export class BoxesComponent implements OnInit {
     },{
       label: "user",
       field: "username",
-      classes: ""
+      classes: "",
+      sortable: true
     },{
       label: "created_at",
       render: (row) => this.date.transform(row.created_at),
@@ -40,7 +43,8 @@ export class BoxesComponent implements OnInit {
     },{
       label: "received_at",
       render: (row) => this.date.transform(row.received_at),
-      classes: "xs"
+      classes: "xs",
+      sortable: true
     },{
       label: "updated_at",
       render: (row) => this.date.transform(row.updated_at),

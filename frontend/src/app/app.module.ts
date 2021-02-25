@@ -8,12 +8,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-import { MatChipsModule } from  '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { DealerComponent } from './dealer/dealer.component';
 import { MatSortModule } from '@angular/material/sort';
-import { Interceptor } from './interceptor';
+import { Interceptor } from './error-http-interceptor';
 import { ErrorsService } from './errors.service';
 import { TPipe } from './t.pipe';
 import { DealerInfoComponent } from './dealer-info/dealer-info.component';
@@ -49,6 +50,9 @@ import { FilterPipe } from './filter.pipe';
 import { LimitPipe } from './limit.pipe';
 import { ChartsModule } from 'ng2-charts';
 import { BasechartComponent } from './dashboard/basechart/basechart.component';
+import { SpinnerInterceptor } from './spinner-interceptor';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService } from './spinner.service';
 
 
 @NgModule({
@@ -75,6 +79,7 @@ import { BasechartComponent } from './dashboard/basechart/basechart.component';
     FilterPipe,
     LimitPipe,
     BasechartComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -101,14 +106,22 @@ import { BasechartComponent } from './dashboard/basechart/basechart.component';
     MatBottomSheetModule,
     MatSidenavModule,
     ChartsModule,
-    ],
+    MatProgressSpinnerModule
+
+  ],
   providers: [
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: Interceptor,
-    multi: true
-  },
-   ErrorsService, DatePipe, TPipe, MatPaginatorIntl],
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    },
+    SpinnerService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true
+    },
+
+    ErrorsService, DatePipe, TPipe, MatPaginatorIntl],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
