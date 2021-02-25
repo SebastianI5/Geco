@@ -8,7 +8,7 @@
 <table mat-table [dataSource]="list" matSort (matSortChange)="sort($event)" style="width: 100%">
 
     <ng-container *ngFor="let e of config.table_fields" [matColumnDef]="e.label">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="format {{e.classes}}"> {{e.label | t}} </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!e.sortable" class="format {{e.classes}}"> {{e.label | t}} </th>
       <td mat-cell *matCellDef="let element" class="format {{e.classes}}">
         <span *ngIf="!e.actions">{{e.render? e.render(element) : element[e.field]}}</span>
         <mat-icon *ngFor="let action of e.actions" class="{{action.class}}"  style="cursor: pointer;" (click)="action.action(element)">
@@ -28,7 +28,7 @@
   <mat-paginator [length]="list[0]?.record_count"
   *ngIf="list && list[0]?.record_count>0"
   [pageSize]="common_params.limit"
-  [pageSizeOptions]="[2, 5, 10, 20]"
+  [pageSizeOptions]="[10, 20, 50]"
   [pageIndex]="common_params.offset/common_params.limit"
   (page)="pageChanged(($event))"
   [itemsPerPageLabel]="pippo"

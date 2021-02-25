@@ -14,6 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,10 +22,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DealersComponent } from './dealers/dealers.component';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button'; 
 import { DealerComponent } from './dealer/dealer.component';
 import { MatSortModule } from '@angular/material/sort';
-import { Interceptor } from './interceptor';
+import { Interceptor } from './error-http-interceptor';
 import { ErrorsService } from './errors.service';
 import { TPipe } from './t.pipe';
 import { DealerInfoComponent } from './dealer-info/dealer-info.component';
@@ -47,6 +48,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddDocTypeBottomSheetComponent } from './add-doc-type-bottom-sheet/add-doc-type-bottom-sheet.component';
 import { FilterPipe } from './filter.pipe';
 import { LimitPipe } from './limit.pipe';
+import { SpinnerInterceptor } from './spinner-interceptor';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService } from './spinner.service';
 
 
 @NgModule({
@@ -71,7 +75,8 @@ import { LimitPipe } from './limit.pipe';
     DashboardComponent,
     AddDocTypeBottomSheetComponent,
     FilterPipe,
-    LimitPipe
+    LimitPipe,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -96,15 +101,22 @@ import { LimitPipe } from './limit.pipe';
     MatSnackBarModule,
     MatTooltipModule,
     MatBottomSheetModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: Interceptor,
-    multi: true
-  },
-   ErrorsService, DatePipe, TPipe, MatPaginatorIntl],
-  bootstrap: [AppComponent]
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    },
+    SpinnerService,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true
+    },
+    
+    ErrorsService, DatePipe, TPipe, MatPaginatorIntl],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

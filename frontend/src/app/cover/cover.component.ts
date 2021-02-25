@@ -99,6 +99,7 @@ export class CoverComponent implements OnInit {
 
   openBottomSheet() {
     this.bs.open(AddDocTypeBottomSheetComponent, {
+      panelClass: 'width-doc-type-bottom-sheet',
       data: { "id": this.a.snapshot.params.id, "doc_types": this.document_types }
     });
   }

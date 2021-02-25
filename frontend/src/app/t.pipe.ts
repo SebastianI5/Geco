@@ -70,7 +70,14 @@ export class TPipe implements PipeTransform {
     received_at: "Data ricezione",
     updated_at: "Data ultimo agg.",
     "box_status_SCATOLA.SCAN": "Lavorata e contratto su documentale",
-    covers: "Frontespizi"
+    covers: "Frontespizi",
+    cover: "Frontespizio",
+    sort: "Ordinamento",
+    mandatory: "Obbligatorio",
+    doc_type_selection: "Seleziona i tipi documentali",
+    attachment: "Allegati",
+    doc: "Tipo documentale"
+
 
   }
 

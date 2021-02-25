@@ -19,8 +19,17 @@ td.mat-cell{
     .xs {
         display: none;
     }
+
+    .mat-bottom-sheet-container {
+        width: 100vw !important;
+    }
 }
 
 mat-toolbar{
     background-color: #29434e;
+}
+
+.mat-bottom-sheet-container {
+    min-width: 62vw !important;
+    width: 62vw;
 }
