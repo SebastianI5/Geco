@@ -26,7 +26,7 @@ public class DealerController extends AbstractController{
             "network_id", " and upper(:network_id) in (select json_array_elements(structures) -> 'network' ->> 'id'  )",
             "region_id", " and upper(:region_id) in (select json_array_elements(structures) -> 'region' ->> 'id'  )",
             "zone_id", " and upper(:zone_id) in (select json_array_elements(structures) -> 'zone' ->> 'id'  )",
-            "dealership_id", " and dealership in (select dealership from geco.dealers_geco where id = :dealership_id)",
+            "dealership_id", " and dealership in (select dealership from dealers_geco where id = :dealership_id)",
             "dealership_group", " and id = :dealership_group", "vatcode", " and vatcode = :vatcode", "id",
             " and id = :id");
 
@@ -48,7 +48,7 @@ public class DealerController extends AbstractController{
     public Map<String, Object> get(@PathVariable String id, @RequestHeader Map<String, String> headers) {
 
         Map<String, Object> dealer = super.get(id, headers);
-        String query = "select * from geco.contracts_" +  User.user(headers).tenant_id + " where dealer_id = :id ";
+        String query = "select * from contracts_" +  User.user(headers).tenant_id + " where dealer_id = :id ";
         dealer.put("contracts", template.queryForList(query, Map.of("id", id))
                 .stream()
                 .map(e -> normalize(e))

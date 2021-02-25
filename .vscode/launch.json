@@ -9,7 +9,7 @@
             "mainClass": "com.eng.geco.Main",
             "projectName": "geco",
             "args": "",
-            "env": { "db_url":"jdbc:postgresql://localhost:5432/postgres" , "db_user": "postgres",  "db_password": "password"}
+            "env": { "db_url":"jdbc:postgresql://localhost:5432/postgres" , "db_user": "geco",  "db_password": "geco"}
         }
     ]
 }

@@ -28,7 +28,7 @@ public abstract class AbstractController {
 
         debug("User logged : " + user.given_name + " " + user.family_name);
 
-        String sql = "select COUNT(0) OVER (PARTITION BY null) as record_count , * from geco."+ table() + "_" + user.tenant_id + " where 1=1 "
+        String sql = "select COUNT(0) OVER (PARTITION BY null) as record_count , * from "+ table() + "_" + user.tenant_id + " where 1=1 "
                 + conditions()
                 .entrySet()
                 .stream()
@@ -98,7 +98,7 @@ public abstract class AbstractController {
             .stream()
             .map(e -> ":"+ e)
             .collect(Collectors.joining(","));
-        return String.format("INSERT INTO geco.%s_%s (%s) VALUES(%s)", table, tenantId , fieldList , paramList);
+        return String.format("INSERT INTO %s_%s (%s) VALUES(%s)", table, tenantId , fieldList , paramList);
     }
 
 
@@ -108,7 +108,7 @@ public abstract class AbstractController {
         .filter(e -> ! e.getKey().equals(key))
         .map(e -> e.getKey() + "=:" + e.getKey() + "::" + e.getValue() )
         .collect(Collectors.joining(","));
-        return String.format("update geco.%s_%s set %s where %s",  table, tenantId, paramList, key + "=:" + key );
+        return String.format("update %s_%s set %s where %s",  table, tenantId, paramList, key + "=:" + key );
     }
 
 }

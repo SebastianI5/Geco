@@ -29,7 +29,7 @@ public class CoversController extends AbstractController {
             " and box_id = :box_id", "box_id_null", " and box_id is null", "market", " and market = :market",
             "service_id", " and service_id = :service_id", "brand_id", " and brand_id = :brand_id", "dealer",
             " and dealer = :dealer", "username", " and username = :username", "available",
-            " and not exists (select null from geco.boxes_geco b where b.id = box_id and b.status <> 'SCATOLA.NEW')");
+            " and not exists (select null from boxes_geco b where b.id = box_id and b.status <> 'SCATOLA.NEW')");
 
     private static Map<String, String> ordering = Map.of("id", "id ");
 
