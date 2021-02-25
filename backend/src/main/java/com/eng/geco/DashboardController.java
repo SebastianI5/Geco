@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,10 +24,9 @@ public class DashboardController {
                 Map.of("data", List.of(44, 34, 78, 39, 48, 33, 40), "label", "Serie B"));
 
         List<String> labels = List.of("2006", "2007", "2008", "2009", "2010", "2011", "2012");
-        Map<String, Object> options = Map.of("responsive", true, "scaleShowVerticalLines", false);
+        Map<String, Object> options = Map.of("responsive", true, "scaleShowVerticalLines", false , "legend", Map.of("display", true));
         result.put("data", data);
-        result.put("legend", true);
-        result.put("labels", labels);
+         result.put("labels", labels);
         result.put("options", options);
         return result;
 
@@ -49,10 +46,10 @@ public class DashboardController {
         "label", "Serie A",
         "backgroundColor", "#FF9966"
         ));
+        Map<String, Object> options = Map.of("responsive", true, "scaleShowVerticalLines", false , "legend", Map.of("display", true));
 
         result.put("data", data);
-        result.put("legend", true);
-
+        result.put("options", options);
         return result;
     }
 
