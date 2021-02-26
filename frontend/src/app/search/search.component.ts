@@ -29,6 +29,9 @@ export class SearchComponent implements OnInit {
   @Input()
   navigate: any;
 
+  @Input()
+  export: any;
+
   constructor(private bus: BusService) { }
 
   async ngOnInit() {
@@ -62,5 +65,9 @@ export class SearchComponent implements OnInit {
     this.list = await this.load(Object.assign(this.common_params, this.params));
   }
 
+
+   export_excel(){
+    console.log("export.excel")
+  }
 
 }

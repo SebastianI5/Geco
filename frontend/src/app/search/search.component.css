@@ -5,3 +5,21 @@
 .orange{
     color: orange;
 }
+
+.double-line-container{
+  display: flex;flex-direction: row;flex-wrap: wrap; align-content: stretch;
+}
+
+.double-line-button-long{
+  width: 70%;
+  margin-right: 2em;
+  margin-left: 2em;
+}
+
+.double-line-button-short{
+  width: 25%;
+}
+
+.single-line-button{
+  width: 100%;
+}

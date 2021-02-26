@@ -68,6 +68,7 @@ export class TPipe implements PipeTransform {
     created_at: "Data creazione",
     report_dealer_no_pec :"Report Dealers senza PEC" ,
     report_occupation_by_pec :"Report Dealers occupazione PEC" ,
+    export :"esporta dati" ,
     sent_at: "Data spedizione",
     received_at: "Data ricezione",
     updated_at: "Data ultimo agg.",

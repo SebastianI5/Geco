@@ -14,7 +14,10 @@ export class ReportOccupationByPecComponent implements OnInit {
   ngOnInit(): void {}
 
   config: any = {
-    search_params: [],
+    search_params: [{
+      label: "dealer",
+      field: "id"
+    }],
     table_fields: [{
       label: "id",
       field: "id",
