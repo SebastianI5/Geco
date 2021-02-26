@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { base_url } from './util';
+
+
+ const base_url="http://localhost:8071";
+
 
 function is_set(x){
   if(x == null){

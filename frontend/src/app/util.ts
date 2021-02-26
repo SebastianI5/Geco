@@ -5,5 +5,3 @@ export function user(){
     access_token = JSON.parse(access_token);
     return access_token;
 }
-
-export const base_url="http://localhost:8071";
