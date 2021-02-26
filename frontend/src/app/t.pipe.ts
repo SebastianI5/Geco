@@ -42,7 +42,7 @@ export class TPipe implements PipeTransform {
     region: "Regione",
     zone: "Zona",
     field_manager: "Manager",
-    
+
     //dealers-mandates
     services: "Servizi",
     service_Assistenza: "Assistenza",
@@ -66,6 +66,8 @@ export class TPipe implements PipeTransform {
     user: "Utente",
     boxes: "Lista scatole",
     created_at: "Data creazione",
+    report_dealer_no_pec :"Report Dealers senza PEC" ,
+    report_occupation_by_pec :"Report Dealers occupazione PEC" ,
     sent_at: "Data spedizione",
     received_at: "Data ricezione",
     updated_at: "Data ultimo agg.",

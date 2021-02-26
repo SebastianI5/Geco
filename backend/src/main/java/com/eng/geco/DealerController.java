@@ -23,12 +23,16 @@ public class DealerController extends AbstractController{
             " and lower( description ) like lower( '%'||:description_like||'%')", "brand_id",
             " and :brand_id in (select json_array_elements(mandates) -> 'brand' ->> 'id'  ) ", "service",
             " and :service in ( select json_array_elements_text(json_array_elements(mandates) -> 'services') )",
-            "network_id", " and upper(:network_id) in (select json_array_elements(structures) -> 'network' ->> 'id'  )",
-            "region_id", " and upper(:region_id) in (select json_array_elements(structures) -> 'region' ->> 'id'  )",
-            "zone_id", " and upper(:zone_id) in (select json_array_elements(structures) -> 'zone' ->> 'id'  )",
+            // "network_id", " and upper(:network_id) in (select json_array_elements(structures) -> 'network' ->> 'id'  )",
+            // "region_id", " and upper(:region_id) in (select json_array_elements(structures) -> 'region' ->> 'id'  )",
+            // "zone_id", " and upper(:zone_id) in (select json_array_elements(structures) -> 'zone' ->> 'id'  )",
             "dealership_id", " and dealership in (select dealership from dealers_geco where id = :dealership_id)",
             "dealership_group", " and id = :dealership_group", "vatcode", " and vatcode = :vatcode", "id",
-            " and id = :id");
+            " and id = :id",
+            "idpec_not_null" , " and idpec is not null",
+            "idpec_null" , " and idpec is null",
+            "fake", " and fake = :fake"
+            );
 
     private static Map<String, String> ordering = Map.of("id", "id ", "status_id", "status ->> 'id' ", "description",
             "description ");

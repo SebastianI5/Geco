@@ -53,6 +53,8 @@ import { BasechartComponent } from './dashboard/basechart/basechart.component';
 import { SpinnerInterceptor } from './spinner-interceptor';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './spinner.service';
+import { ReportDealerNoPecComponent } from './report-dealer-no-pec/report-dealer-no-pec.component';
+import { ReportOccupationByPecComponent } from './report-occupation-by-pec/report-occupation-by-pec.component';
 
 
 @NgModule({
@@ -79,7 +81,9 @@ import { SpinnerService } from './spinner.service';
     FilterPipe,
     LimitPipe,
     BasechartComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ReportDealerNoPecComponent,
+    ReportOccupationByPecComponent
   ],
   imports: [
     BrowserModule,
