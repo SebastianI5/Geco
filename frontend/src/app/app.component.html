@@ -1,34 +1,3 @@
-<!-- <mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      Toggle extra text
-    </button>
-  </mat-drawer>
-
-  <div class="example-sidenav-content">
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button>
-  </div>
-
-</mat-drawer-container> -->
-
-<!-- <p>
-    <mat-toolbar color="primary">
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span><a routerLink="/"><img src="assets/logo.png" style="height: 3em;"></a></span>
-      <a routerLink="/dealers" class="menu {{current_page=='dealers'?'menu-active':''}}">{{"dealers" | t}}</a>
-      <a routerLink="/contracts" class="menu {{current_page=='contracts'?'menu-active':''}}">{{"contracts" | t}}</a>
-      <a routerLink="/boxes" class="menu {{current_page=='boxes'?'menu-active':''}}">{{"boxes" | t}}</a>
-      <span style="flex: auto;"></span>
-      <span>{{name}}</span>
-    </mat-toolbar>
-</p> -->
-
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <button mat-icon-button>
@@ -50,8 +19,6 @@
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
-</mat-sidenav-container><!-- <div style="width: 92%; margin: auto;">
-  <router-outlet></router-outlet>
-</div> -->
+</mat-sidenav-container>
 
 

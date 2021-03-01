@@ -15,4 +15,8 @@ export class BoxesService {
   get(id: string) {
     return this.net.get('boxes', id);
   }
+
+  put(id: string, body: any){
+    return this.net.put("boxes", id, body);
+  }
 }

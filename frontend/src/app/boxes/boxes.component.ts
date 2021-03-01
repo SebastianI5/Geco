@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BoxesService } from '../boxes.service';
+import { BusService, RELOAD_EVENT } from '../bus.service';
 import { TPipe } from '../t.pipe';
 
 
@@ -49,6 +50,30 @@ export class BoxesComponent implements OnInit {
       label: "updated_at",
       render: (row) => this.date.transform(row.updated_at),
       classes: "xs"
+    }, {
+      label: "action",
+      actions: [{ action: (row) => this.next_status(row, "SCATOLA.DAINVIARE"), 
+                    icon: "forward", 
+                    class: "warning",
+                    title: "close_box",
+                    condition: (row) => row.status == "SCATOLA.NEW" },
+                { action: (row) => this.next_status(row, "SCATOLA.INVIATA"), 
+                    icon: "forward", 
+                    class: "warning",
+                    title: "send_box",
+                    condition: (row) => row.status == "SCATOLA.DAINVIARE" },
+                { action: (row) => this.next_status(row, "SCATOLA.RICEVUTA"), 
+                    icon: "forward", 
+                    class: "warning",
+                    title: "received_box",
+                    condition: (row) => row.status == "SCATOLA.INVIATA" },
+                { action: (row) => this.next_status(row, "SCATOLA.SCAN"), 
+                    icon: "forward", 
+                    class: "warning",
+                    title: "working_box",
+                    condition: (row) => row.status == "SCATOLA.RICEVUTA" }
+      ],
+      classes: ""
     }]  
   };  
 
@@ -59,7 +84,8 @@ export class BoxesComponent implements OnInit {
   constructor(private b: BoxesService, 
       private router: Router, 
       private date: DatePipe,
-      private t: TPipe) { }
+      private t: TPipe,
+      private bus: BusService) { }
 
   ngOnInit(): void {
    
@@ -72,6 +98,11 @@ export class BoxesComponent implements OnInit {
 
   navigate(row){
     this.router.navigate(['/boxes/'+row.id]);
+  }
+
+  async next_status(row, status){
+    await this.b.put(row.id, {"status": status});
+    this.bus.publish(RELOAD_EVENT);
   }
 
 }
