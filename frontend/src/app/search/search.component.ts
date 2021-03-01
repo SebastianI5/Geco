@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { BusService, RELOAD_EVENT } from 'src/app/bus.service';
+import { ExcelService } from '../excel.service';
 
 @Component({
   selector: 'app-search',
@@ -32,7 +33,7 @@ export class SearchComponent implements OnInit {
   @Input()
   export: any;
 
-  constructor(private bus: BusService) { }
+  constructor(private bus: BusService, private excelService : ExcelService) { }
 
   async ngOnInit() {
     this.bus.subscribe(RELOAD_EVENT, () => this.load_list());
@@ -66,8 +67,19 @@ export class SearchComponent implements OnInit {
   }
 
 
-   export_excel(){
-    console.log("export.excel")
+  private transform(elem : any ) : any {
+    return {id: elem.id , description : elem.description , market : elem.market }
+  }
+
+  private prepare_to_export(list : any[]){
+    return list.map(
+      elem =>  this.transform(elem)
+    )
+  }
+
+   export_as_excel(){
+
+    this.excelService.exportAsExcelFile(this.prepare_to_export(this.list), "Report", "Occupazione Pec");
   }
 
 }
