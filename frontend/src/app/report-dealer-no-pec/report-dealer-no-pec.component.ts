@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DealerService } from '../dealer.service';
+import { ReportService } from '../report.service';
 import { TPipe } from '../t.pipe';
 
 @Component({
@@ -9,33 +9,33 @@ import { TPipe } from '../t.pipe';
 })
 export class ReportDealerNoPecComponent implements OnInit {
 
-  constructor(private d: DealerService,  private t: TPipe) { }
+  constructor(private reportService: ReportService,  private t: TPipe) { }
+
+  exportName="dealer-no-pec"
 
   ngOnInit(): void {}
 
   config: any = {
     search_params: [],
     table_fields: [{
-      label: "id",
-      field: "id",
+      label: "vatcode",
+      field: "vatcode",
       classes: ""
     },{
       label: "description",
       field: "description",
       classes: ""
     },{
-      label: "status",
-      render: (row) => this.t.transform("dealer_status_" + row.status),
-      classes: "xs"
-    }]
+      label: "dealer_id",
+      field: "dealer_id",
+      classes: ""
+    }
+  ]
   };
 
-  params = {
-    idpec_null : "true",
-    fake : "N"
-  }
+
 
   async load(params) {
-    return await this.d.list(params);
+    return await this.reportService.dealers_no_pec(params);
   }
 }

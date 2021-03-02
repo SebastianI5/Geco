@@ -14,7 +14,7 @@ export class ExcelService {
   constructor() { }
 
   private timestamp() {
-    return new Date().toISOString().substring( 0, 10 )
+    return new Date().toISOString()
   }
 
 
