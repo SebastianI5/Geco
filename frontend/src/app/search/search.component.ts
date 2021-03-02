@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { BusService, RELOAD_EVENT } from 'src/app/bus.service';
 import { ExcelService } from '../excel.service';
 import { TPipe } from '../t.pipe';

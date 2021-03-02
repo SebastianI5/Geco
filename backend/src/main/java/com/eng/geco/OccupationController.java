@@ -21,15 +21,14 @@ public class OccupationController extends AbstractController {
 
     @Override
     protected Map<String, String> conditions() {
-        return Collections.emptyMap();
+        return Map.of("dealer_id", " and dealer_id=:dealer_id", "description_like",
+                " and lower( description ) like lower( '%'||:description_like||'%')");
     }
 
     @Override
     protected Map<String, String> ordering() {
         return Collections.emptyMap();
     }
-
-
 
     @GetMapping("/reports/occupation")
     @Override
@@ -40,7 +39,5 @@ public class OccupationController extends AbstractController {
 
         return super.list(parameters, offset, limit, sort, direction, headers);
     }
-
-
 
 }
