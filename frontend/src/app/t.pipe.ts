@@ -81,7 +81,11 @@ export class TPipe implements PipeTransform {
     attachment: "Allegati",
     doc: "Tipo documentale",
     //TODO
-    PEC_STATUS_1 : "da chiedere a marco1",
+    DEALER_STATUS_1 : "1-Active",
+    DEALER_STATUS_0 : "0-Inactive",
+    DEALER_STATUS_2 : "2-Residual Handlings",
+    DEALER_STATUS_8 : "8-Stopped",
+    DEALER_STATUS_9 : "9-Cancelled",
     BRAND_null : "",
     BRAND_70 : "Fiat"
 
