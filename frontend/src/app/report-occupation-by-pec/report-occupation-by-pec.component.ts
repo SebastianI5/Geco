@@ -18,7 +18,7 @@ export class ReportOccupationByPecComponent implements OnInit {
   config: any = {
     search_params: [
       {
-      label: "dealer",
+      label: "dealer id or description",
       field: "dealer_id"
       },
       {
@@ -39,24 +39,13 @@ export class ReportOccupationByPecComponent implements OnInit {
     {
       label: "space",
       field: "space",
-      classes: ""
+      classes: "",
+      render : (row) => row.space + " MB"
     },
     {
       label: "percentage",
       field: "percentage",
-      classes: ""
-    },
-    {
-      label: "color",
-      render : (row) => {
-        if(row.percentage <= 60){
-          return "green";
-        }
-        if (row.percentage <= 80 ){
-          return "yellow";
-        }
-        return "red";
-      },
+      render: (row) => row.percentage + " %",
       classes: ""
     },
     {
@@ -82,7 +71,7 @@ export class ReportOccupationByPecComponent implements OnInit {
       },
       {
         key: "status",
-        render: (row) => this.t.transform("PEC_STATUS_"+row.status)
+        render: (row) => this.t.transform("DEALER_STATUS_"+row.status)
       },
       {
         key: "brand_id",
@@ -92,7 +81,18 @@ export class ReportOccupationByPecComponent implements OnInit {
         key: "space",
         render : (row) => row.space + " MB"
       }
-    ]
+    ],
+
+    color_class : (row) => {
+          if(row.percentage <= 60){
+            return "green-row";
+          }
+          if (row.percentage <= 80 ){
+            return "yellow-row";
+          }
+          return "red-row";
+        },
+        classes: ""
   };
 
 

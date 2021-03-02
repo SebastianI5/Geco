@@ -24,3 +24,14 @@
 .single-line-button{
   width: 100%;
 }
+
+.red-row {
+  background-color: #f38c8c;
+}
+.green-row {
+  background-color: #b2f5a9;
+}
+.yellow-row {
+  background-color: #f8ee8e;
+}
+
