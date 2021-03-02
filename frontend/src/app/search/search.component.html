@@ -7,8 +7,8 @@
   <button mat-flat-button *ngIf="config.search_params.length>0" color="primary"
     class="{{export ? 'double-line-button-long' : 'single-line-button'}}"
     (click)="load_list()">{{"search" | t}}</button>
-  <button mat-flat-button *ngIf="export" color="primary"
-    class="{{export ? 'double-line-button-short' : 'single-line-button'}}" (click)="export_as_excel()">{{"export" | t}}</button>
+  <button mat-flat-button *ngIf="export" color="accent"
+    class="{{config.search_params.length>0 ? 'double-line-button-short' : 'single-line-button'}}" (click)="export_as_excel()">{{"export" | t}}</button>
 </div>
 
 

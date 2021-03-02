@@ -2,20 +2,20 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { BusService, RELOAD_EVENT } from 'src/app/bus.service';
 import { ExcelService } from '../excel.service';
 
-@Component({
+@Component( {
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
-})
+} )
 export class SearchComponent implements OnInit {
 
-  list : any [] = [];
+  list: any[] = [];
 
   common_params = {
-    offset:  0,
+    offset: 0,
     limit: 10,
-    sort: 'id',
-    direction: 'asc'
+    sort: '',
+    direction: ''
   }
 
   @Input()
@@ -33,53 +33,42 @@ export class SearchComponent implements OnInit {
   @Input()
   export: any;
 
-  constructor(private bus: BusService, private excelService : ExcelService) { }
+  constructor( private bus: BusService, private excelService: ExcelService ) { }
 
   async ngOnInit() {
-    this.bus.subscribe(RELOAD_EVENT, () => this.load_list());
+    this.bus.subscribe( RELOAD_EVENT, () => this.load_list() );
     await this.load_list();
   }
 
 
-  async pageChanged(e){
+  async pageChanged( e ) {
     this.common_params.offset = e.pageIndex * e.pageSize;
     this.common_params.limit = e.pageSize;
     await this.load_list();
   }
 
-  resetOffset(){
+  resetOffset() {
     this.common_params.offset = 0;
   }
 
-  async sort(e){
+  async sort( e ) {
     this.common_params.sort = e.active;
     this.common_params.direction = e.direction;
     this.resetOffset();
     await this.load_list();
   }
 
-  table_fields(){
-    return this.config.table_fields.map(e => e.label);
+  table_fields() {
+    return this.config.table_fields.map( e => e.label );
   }
 
-  async load_list(){
-    this.list = await this.load(Object.assign(this.common_params, this.params));
+  async load_list() {
+    this.list = await this.load( Object.assign( this.common_params, this.params ) );
   }
 
 
-  private transform(elem : any ) : any {
-    return {id: elem.id , description : elem.description , market : elem.market }
-  }
-
-  private prepare_to_export(list : any[]){
-    return list.map(
-      elem =>  this.transform(elem)
-    )
-  }
-
-   export_as_excel(){
-
-    this.excelService.exportAsExcelFile(this.prepare_to_export(this.list), "Report", "Occupazione Pec");
+  export_as_excel( ) {
+    this.excelService.exportAsExcelFile( this.list, "report-"+ this.export, this.export );
   }
 
 }
