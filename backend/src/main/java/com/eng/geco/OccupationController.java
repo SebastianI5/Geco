@@ -21,8 +21,7 @@ public class OccupationController extends AbstractController {
 
     @Override
     protected Map<String, String> conditions() {
-        return Map.of("dealer_id", " and dealer_id=:dealer_id", "description_like",
-                " and lower( description ) like lower( '%'||:description_like||'%')");
+        return Map.of("dealer_id", " and dealer_id=:dealer_id or lower( description ) like lower( '%'||:dealer_id||'%') ");
     }
 
     @Override

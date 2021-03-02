@@ -80,6 +80,7 @@ export class TPipe implements PipeTransform {
     doc_type_selection: "Seleziona i tipi documentali",
     attachment: "Allegati",
     doc: "Tipo documentale",
+    dealer_id_or_desc : "dealer id o descrizione del dealer",
     //TODO
     DEALER_STATUS_1 : "1-Active",
     DEALER_STATUS_0 : "0-Inactive",
