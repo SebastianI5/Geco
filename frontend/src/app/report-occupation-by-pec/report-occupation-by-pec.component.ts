@@ -24,6 +24,10 @@ export class ReportOccupationByPecComponent implements OnInit {
       {
         label: "color",
         field: "color"
+      },
+      {
+        label: "brand",
+      field: "brand_id"
       }
   ],
     table_fields: [
@@ -70,7 +74,25 @@ export class ReportOccupationByPecComponent implements OnInit {
       field: "brand_id",
       classes: ""
     }
-  ]
+  ],
+    export_fields:[
+      {
+        key: "percentage",
+        render: (row) => row.percentage + "%"
+      },
+      {
+        key: "status",
+        render: (row) => this.t.transform("PEC_STATUS_"+row.status)
+      },
+      {
+        key: "brand_id",
+        render: (row) => this.t.transform("BRAND_"+row.brand_id)
+      },
+      {
+        key: "space",
+        render : (row) => row.space + " MB"
+      }
+    ]
   };
 
 

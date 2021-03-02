@@ -79,8 +79,11 @@ export class TPipe implements PipeTransform {
     mandatory: "Obbligatorio",
     doc_type_selection: "Seleziona i tipi documentali",
     attachment: "Allegati",
-    doc: "Tipo documentale"
-
+    doc: "Tipo documentale",
+    //TODO
+    PEC_STATUS_1 : "da chiedere a marco1",
+    BRAND_null : "",
+    BRAND_70 : "Fiat"
 
   }
 

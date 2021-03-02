@@ -30,10 +30,14 @@ export class ReportDealerNoPecComponent implements OnInit {
       field: "dealer_id",
       classes: ""
     }
+  ],
+  export_fields:[
+    {
+      key: "brand_id",
+      render: (row) => this.t.transform("BRAND_"+row.brand_id)
+    }
   ]
   };
-
-
 
   async load(params) {
     return await this.reportService.dealers_no_pec(params);
