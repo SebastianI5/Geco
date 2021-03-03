@@ -43,7 +43,7 @@ export class TPipe implements PipeTransform {
     region: "Regione",
     zone: "Zona",
     field_manager: "Manager",
-    
+
     //dealers-mandates
     services: "Servizi",
     service_Assistenza: "Assistenza",
@@ -67,6 +67,9 @@ export class TPipe implements PipeTransform {
     user: "Utente",
     boxes: "Lista scatole",
     created_at: "Data creazione",
+    report_dealer_no_pec :"Report Dealers senza PEC" ,
+    report_occupation_by_pec :"Report Dealers occupazione PEC" ,
+    export :"esporta dati" ,
     sent_at: "Data spedizione",
     received_at: "Data ricezione",
     updated_at: "Data ultimo agg.",
@@ -82,8 +85,17 @@ export class TPipe implements PipeTransform {
     received_box: "Ricevi",
     send_box: "Invia",
     close_box: "Chiudi",
-    working_box: "Lavora"
+    working_box: "Lavora",
 
+    dealer_id_or_desc : "dealer id o descrizione del dealer",
+    //TODO
+    DEALER_STATUS_1 : "1-Active",
+    DEALER_STATUS_0 : "0-Inactive",
+    DEALER_STATUS_2 : "2-Residual Handlings",
+    DEALER_STATUS_8 : "8-Stopped",
+    DEALER_STATUS_9 : "9-Cancelled",
+    BRAND_null : "",
+    BRAND_70 : "Fiat"
 
   }
 
