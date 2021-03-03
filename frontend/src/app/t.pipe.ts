@@ -16,7 +16,8 @@ export class TPipe implements PipeTransform {
 
     //commons
     search: "Ricerca",
-    action: "Azioni",
+    action: " ",
+    username: "Nome utente",
     //dealers-component
     dealer: "Dealer",
     description: "Descrizione",
@@ -55,7 +56,7 @@ export class TPipe implements PipeTransform {
     pages: "Pagine",
 
     //contracts
-    contract: "Contratti",
+    contract: "Contratto",
     service: "Servizio",
     brand: "Brand",
     documents: "Documenti",
@@ -76,7 +77,12 @@ export class TPipe implements PipeTransform {
     mandatory: "Obbligatorio",
     doc_type_selection: "Seleziona i tipi documentali",
     attachment: "Allegati",
-    doc: "Tipo documentale"
+    doc: "Tipo documentale",
+
+    received_box: "Ricevi",
+    send_box: "Invia",
+    close_box: "Chiudi",
+    working_box: "Lavora"
 
 
   }

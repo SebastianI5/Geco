@@ -7,7 +7,9 @@
 
     <ng-container matColumnDef="brand">
         <th mat-header-cell *matHeaderCellDef style="width: 1%;"class="format" > {{"brand" | t}} </th>
-        <td mat-cell *matCellDef="let element"> {{element.brand_id}} </td>
+        <td mat-cell *matCellDef="let element">
+            <img src="/assets/brand_{{element.brand_id}}.png" style="height: 48px;">
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="services">

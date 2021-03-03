@@ -1,9 +1,29 @@
- <h2>{{"document_list" | t}} ({{"contract" | t}} )</h2>
+ <div *ngIf="dealer">
+     <div style="margin-bottom: 1em;">
+        <img src="assets/brand_{{contract.brand_id}}.png" style="float: left; height: 8em;">
+        <div style="float: left; margin-left: 2em;">
+            <dl>
+                <dt><small>{{"dealer" | t}}</small></dt>
+                <dd>{{dealer.description}}</dd>
+    
+                <dt><small>{{"service" | t}}</small></dt>
+                <dd>{{contract.service_id}}</dd>
+            </dl>
+        </div>
+    <div style="clear: both;"></div>
+    </div>
+
+    
+
+    <h2>{{"document_list" | t}} ({{"contract" | t}} {{contract.id}})</h2>
+
+    <app-search 
+    [config]="config" 
+    [params]="params"
+    [load]="load.bind(this)"
+    [navigate]="navigate.bind(this)"
+    >
+   </app-search>
+ </div>
+
  
- <app-search 
- [config]="config" 
- [params]="params"
- [load]="load.bind(this)"
- [navigate]="navigate.bind(this)"
- >
-</app-search>

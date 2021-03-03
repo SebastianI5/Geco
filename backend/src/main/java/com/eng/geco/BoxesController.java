@@ -22,7 +22,10 @@ public class BoxesController extends AbstractController{
 
 
 
-    private static Map<String, String> queryConditions = Map.of("id"," and id = :id");
+    private static Map<String, String> queryConditions = Map.of("id"," and id = :id",
+    		"status"," and status = :status",
+    		"created_at"," and created_at = :created_at",
+    		"username_like"," and lower( username ) like lower( '%'||:username_like||'%')");
 
 	private static Map<String, String> ordering = Map.of("id", "id ");
 
@@ -51,6 +54,7 @@ public class BoxesController extends AbstractController{
         Map<String, String> types = new HashMap<>();
         types.put("status", "varchar");
         types.put("id", "varchar");
+        System.out.println(types);
 
         String sql = update(types, User.user(headers).tenant_id, table(), "id");
 

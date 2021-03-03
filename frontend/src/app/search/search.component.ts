@@ -8,6 +8,8 @@ import { BusService, RELOAD_EVENT } from 'src/app/bus.service';
 })
 export class SearchComponent implements OnInit {
 
+  disable_route: false;
+
   list : any [] = [];
 
   common_params = {
@@ -59,6 +61,7 @@ export class SearchComponent implements OnInit {
   }
 
   async load_list(){
+    this.disable_route = false;
     this.list = await this.load(Object.assign(this.common_params, this.params));
   }
 

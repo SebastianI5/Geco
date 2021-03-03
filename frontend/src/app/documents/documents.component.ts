@@ -9,6 +9,9 @@ import { DealerService } from '../dealer.service';
 })
 export class DocumentsComponent implements OnInit {
 
+  dealer: any;
+  contract: any;
+
   config: any = {
     search_params: [],
     table_fields: [{
@@ -38,13 +41,15 @@ export class DocumentsComponent implements OnInit {
 
   constructor(private d: DealerService, private a: ActivatedRoute, private router: Router) { }
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    this.dealer = await this.d.get(this.a.snapshot.params.id);
+    let contract_id =  this.a.snapshot.params.contract_id;
+    this.contract = this.dealer["contracts"].find(e => e.id == contract_id);
+    console.log(this.dealer);
+  }
 
   async load(params) {
-    let dealer = await this.d.get(this.a.snapshot.params.id);
-    let contract_id =  this.a.snapshot.params.contract_id;
-    let contract = dealer["contracts"].find(e => e.id == contract_id);
-    return contract.documents;
+    return this.contract.documents;
   }
 
   navigate(row){

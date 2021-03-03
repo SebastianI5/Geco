@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BoxesService } from '../boxes.service';
 import { BusService, RELOAD_EVENT } from '../bus.service';
 import { TPipe } from '../t.pipe';
+import { user } from '../util';
 
 
 @Component({
@@ -14,10 +15,19 @@ import { TPipe } from '../t.pipe';
 export class BoxesComponent implements OnInit {
 
   config: any = {
+    //stato, data creazione, utente, def: le mie scatole
     search_params: [{
       label: "id",
       field: "id"
-      
+    },{
+      label: "status",
+      field: "status"
+    },{
+      label: "created_at",
+      field: "created_at"
+    },{
+      label: "username",
+      field: "username_like"
     }],
     table_fields: [{
       label: "box",
@@ -54,22 +64,22 @@ export class BoxesComponent implements OnInit {
       label: "action",
       actions: [{ action: (row) => this.next_status(row, "SCATOLA.DAINVIARE"), 
                     icon: "forward", 
-                    class: "warning",
+                    color: "primary",
                     title: "close_box",
                     condition: (row) => row.status == "SCATOLA.NEW" },
                 { action: (row) => this.next_status(row, "SCATOLA.INVIATA"), 
                     icon: "forward", 
-                    class: "warning",
+                    color: "primary",
                     title: "send_box",
                     condition: (row) => row.status == "SCATOLA.DAINVIARE" },
                 { action: (row) => this.next_status(row, "SCATOLA.RICEVUTA"), 
                     icon: "forward", 
-                    class: "warning",
+                    color: "primary",
                     title: "received_box",
                     condition: (row) => row.status == "SCATOLA.INVIATA" },
                 { action: (row) => this.next_status(row, "SCATOLA.SCAN"), 
                     icon: "forward", 
-                    class: "warning",
+                    color: "primary",
                     title: "working_box",
                     condition: (row) => row.status == "SCATOLA.RICEVUTA" }
       ],
@@ -78,7 +88,8 @@ export class BoxesComponent implements OnInit {
   };  
 
   params = {
-    id: ""
+    id: "",
+    username_like: user()["name"]
   }
 
   constructor(private b: BoxesService, 
@@ -101,6 +112,7 @@ export class BoxesComponent implements OnInit {
   }
 
   async next_status(row, status){
+    console.log("hello");
     await this.b.put(row.id, {"status": status});
     this.bus.publish(RELOAD_EVENT);
   }

@@ -10,17 +10,28 @@ import { ContractService } from '../contract.service';
 export class ContractsComponent implements OnInit {
 
   config: any = {
+    //dealer, brand, servizio, marchio rete, zona
     search_params: [{
       label: "contract",
       field: "id"
+    },{
+      label: "brand",
+      field: "brand_id"
+    },{
+      label: "service",
+      field: "service_id"
     }],
     table_fields: [{
+      label: "id",
+      field: "id",
+      classes: ""
+    },{
       label: "service",
-      field: "service",
+      field: "service_id",
       classes: ""
     },{
       label: "brand",
-      field: "brand_id",
+      image: (row) => "/assets/brand_" + row.brand_id + ".png",
       classes: ""
     },{
       label: "documents",

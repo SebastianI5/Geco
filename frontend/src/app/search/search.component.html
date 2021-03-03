@@ -11,17 +11,25 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!e.sortable" class="format {{e.classes}}"> {{e.label | t}} </th>
       <td mat-cell *matCellDef="let element" class="format {{e.classes}}">
         <span *ngIf="!e.actions">{{e.render? e.render(element) : element[e.field]}}</span>
-        <span *ngFor="let action of e.actions">
-          <mat-icon *ngIf="action.condition(element)" title="{{action.title | t}}" class="{{action.class}}"  style="cursor: pointer;" (click)="action.action(element)">
-            {{action.icon}}
-          </mat-icon>
-        </span>
+        <img *ngIf="e.image" [src]="e.image(element)" style="height: 48px;">
+        <div *ngFor="let action of e.actions">
+            <button *ngIf="action.condition && action.condition(element)" 
+                mat-raised-button [color]="action.color" 
+                style="width: 100%; text-align: left;"
+                (click)="action.action(element); disable_route = true">
+              <mat-icon>
+                {{action.icon}}
+              </mat-icon>
+              {{action.title | t}}
+            </button>
+          <!-- </mat-icon-button> -->
+        </div>
       </td>
     </ng-container>
 
 
     <tr mat-header-row *matHeaderRowDef="table_fields()"></tr>
-    <tr mat-row style="cursor: pointer;" *matRowDef="let row; columns: table_fields()" (click)="navigate(row)"></tr>
+    <tr mat-row style="cursor: pointer;" *matRowDef="let row; columns: table_fields()" (click)="disable_route ? [] : navigate(row)"></tr>
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="20" style="text-align: center;">{{"no_data_found" | t}}</td>
     </tr>
