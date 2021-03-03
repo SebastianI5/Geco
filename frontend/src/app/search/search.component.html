@@ -15,7 +15,7 @@
 <table mat-table [dataSource]="list" matSort (matSortChange)="sort($event)" style="width: 100%">
     <ng-container *ngFor="let e of config.table_fields" [matColumnDef]="e.label">
       <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!e.sortable" class="format {{e.classes}}"> {{e.label | t}} </th>
-      <td mat-cell *matCellDef="let element" class="format {{e.classes}} {{config.color_class(element)}}">
+      <td mat-cell *matCellDef="let element" class="format {{e.classes}} {{ config.color_class ? config.color_class(element) : e.classes }}">
         <span *ngIf="!e.actions">{{e.render? e.render(element) : element[e.field]}}</span>
         <img *ngIf="e.image" [src]="e.image(element)" style="height: 48px;">
         <div *ngFor="let action of e.actions">

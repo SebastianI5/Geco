@@ -23,9 +23,10 @@ public class BoxesController extends AbstractController{
 
 
     private static Map<String, String> queryConditions = Map.of("id"," and id = :id",
-    		"status"," and status = :status",
-    		"created_at"," and created_at = :created_at",
-    		"username_like"," and lower( username ) like lower( '%'||:username_like||'%')");
+    "status"," and status = :status",
+    "created_at"," and created_at = :created_at",
+    "username_like"," and lower( username ) like lower( '%'||:username_like||'%')");
+
 
 	private static Map<String, String> ordering = Map.of("id", "id ");
 
@@ -45,7 +46,9 @@ public class BoxesController extends AbstractController{
 
         return super.get(id, headers);
     }
-    
+
+
+
     @PutMapping("/boxes/{id}")
     public Map<String, Object> put(@PathVariable String id, @RequestBody Map<String, Object> body,
             @RequestHeader Map<String, String> headers) {
@@ -62,6 +65,7 @@ public class BoxesController extends AbstractController{
         template.update(sql, Map.of("id", id, "status", body.get("status")));
         return get(id, headers);
     }
+
 
 	@Override
 	protected String table() {

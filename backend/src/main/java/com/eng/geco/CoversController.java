@@ -40,7 +40,7 @@ public class CoversController extends AbstractController {
             @RequestParam(defaultValue = "id") String sort, @RequestParam(defaultValue = "asc") String direction,
             @RequestHeader Map<String, String> headers) {
 
-        return super.list(parameters, offset, limit, sort, direction, headers);
+                return super.list(parameters, offset, limit, sort, direction, headers);
     }
 
     @GetMapping("/covers/{id}")

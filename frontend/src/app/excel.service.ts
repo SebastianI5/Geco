@@ -21,7 +21,6 @@ export class ExcelService {
   public exportAsExcelFile( json: any[], excelFileName: string, worksheetName: string ): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet( json );
     worksheet["!cols"] = this.calcColWidth( json );
-
     var wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet( wb, worksheet, worksheetName )
     XLSX.writeFile( wb, excelFileName + "." + this.timestamp() + EXCEL_EXTENSION )

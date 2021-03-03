@@ -68,7 +68,9 @@ export class SearchComponent implements OnInit {
   async load_list() {
     this.disable_route = false;
     let trimmedParams = {}
-    Object.keys(this.params).forEach(k => trimmedParams[k] = this.params[k].trim())
+    if (this.params){
+      Object.keys(this.params).forEach(k => trimmedParams[k] = this.params[k].trim())
+    }
     this.list = await this.load( Object.assign({},  this.common_params, trimmedParams ) );
   }
 

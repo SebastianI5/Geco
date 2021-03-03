@@ -34,7 +34,7 @@ public abstract class AbstractController {
                 .stream()
                 .filter(e -> parameters.containsKey(e.getKey()))
                 .map(e -> e.getValue()).collect(Collectors.joining(" "))
-                + " order by " + getOrderByString(sort, direction) + " limit " + limit + " offset " + offset;
+                + getOrderByString(sort, direction) + " limit " + limit + " offset " + offset;
 
         debug( sql);
         return template.queryForList(sql, parameters).stream().map(e -> normalize(e)).collect(Collectors.toList());
@@ -57,7 +57,7 @@ public abstract class AbstractController {
 
 	private String getOrderByString(String sort, String direction) {
         String dir = List.of("asc", "desc").contains(direction.toLowerCase()) ? direction : "asc";
-        return ordering().containsKey(sort) ? ordering().get(sort) + " " + dir : " id " + dir;
+        return ordering().containsKey(sort) ? " order by " + ordering().get(sort) + " " + dir : "";
     }
 
 	protected Map<String, Object> normalize(Map<String, Object> input) {
