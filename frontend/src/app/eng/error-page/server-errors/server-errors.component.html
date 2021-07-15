@@ -1,0 +1,19 @@
+<div *ngIf="error && error.server_down">
+
+  <div style="width: 100%; text-align: center; margin-top: 3em">
+    <mat-icon>error</mat-icon>
+    <h2>INTERNAL SERVER ERROR </h2>
+</div>
+<div style="width: 100%; margin-top: 2em">
+  <mat-accordion>
+      <mat-expansion-panel>
+      <mat-expansion-panel-header style="height: 48px;">
+      <mat-panel-title>
+          Dettaglio errore / error detail
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ngx-json-viewer  [json]="error"></ngx-json-viewer>
+   </mat-expansion-panel>
+  </mat-accordion>
+</div>
+ </div>

@@ -1,0 +1,37 @@
+<div>
+    <h2>{{'available_covers' | t}}</h2>
+    <button mat-raised-button color="primary" class="single-line-button" style="float: right;" (click)="add_all()">{{"add_all" | t}}</button>
+</div>
+
+<table class="mat-table" style="width: 100%;" >
+    <tr class="mat-header-row" >
+
+
+        <th class="mat-header-cell" >
+            Service
+        </th>
+        <th class="mat-header-cell" >
+            Brand
+        </th>
+        <th class="mat-header-cell" >
+            Dealer
+        </th>
+    </tr>
+    <tr *ngFor="let e of list" (click)="add_cover(e)" class="mat-row" style="cursor: pointer;" >
+
+
+        <td class="mat-cell">
+            {{"service_" + e.service_id | t}}
+        </td>
+
+        <td class="mat-cell">
+            <img [src]="brand_image(e.brand_id)" style="height: 48px;">
+        </td>
+
+        <td class="mat-cell">
+            {{e.dealer_id}} - {{e.description}}
+        </td>
+    </tr>
+</table>
+
+

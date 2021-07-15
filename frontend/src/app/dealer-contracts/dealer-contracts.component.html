@@ -1,0 +1,40 @@
+<table class="mat-table" style="width: 100%;">
+    <tr class="mat-header-row">
+        <th class="mat-header-cell" >
+            {{"service" | t}}
+        </th>
+        <th class="mat-header-cell" >
+            {{"brand" | t}}
+        </th>
+        <th class="mat-header-cell" >
+            #{{"documents" | t}}
+        </th>
+        <th class="mat-header-cell" >
+            {{"signed_contracts" | t}}
+        </th>
+        <th class="mat-header-cell" >
+            {{"completed" | t}}
+        </th>
+    </tr>
+    <tr class="mat-header-row pointer" *ngFor="let e of dealer.contracts; let i = index" (click)="navigate(e)">
+        <td class="mat-cell" >
+            {{e.service_id}}
+        </td>
+        <td class="mat-cell">
+            <span [matTooltip]="e.brand_id" matTooltipPosition="right">
+                <img [src]="brand_image(e.brand_id)" style="height: 48px;">
+            </span>
+        </td>
+        <td class="mat-cell" >
+            {{e.documents.length}}
+        </td>
+        <td class="mat-cell">
+            <button color="primary" mat-flat-button (click)="$event.stopPropagation()">
+                <mat-icon>picture_as_pdf</mat-icon> {{ 'view' | t}}
+            </button>
+        </td>
+        <td class="mat-cell">
+            <mat-icon style="color: green">done</mat-icon>
+        </td>
+    </tr>
+</table>

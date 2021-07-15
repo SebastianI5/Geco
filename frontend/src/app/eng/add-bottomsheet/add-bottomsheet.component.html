@@ -1,0 +1,43 @@
+<h2 *ngIf="config.title" style="display: inline; margin-bottom: 3em;">{{ config.title | t}}</h2>
+
+<div *ngFor="let input_field of config.input">
+
+  <div *ngIf="input_field.type == 'text'">
+    <mat-form-field style="width: 100%;" appearance="legacy">
+      <mat-label>{{ input_field.label | t}}</mat-label>
+      <input matInput #input_ref [(ngModel)]="params[input_field.field]" (keyup.enter)="create()"
+        placeholder="{{input_field.placeholder | t}}">
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="input_field.type == 'autocomplete'">
+    <app-autocomplete  [config]="input_field.config" [(input)]="params[input_field.field]"  ></app-autocomplete>
+  </div>
+
+  <div *ngIf="input_field.type == 'select'" >
+    <mat-form-field style="padding-right: 1em;  width: 100%;">
+      <mat-select [(ngModel)]="params[input_field.field]" placeholder="{{ input_field.placeholder | t}}">
+        <mat-option [value]="">
+          . . .
+        </mat-option>
+        <mat-option *ngFor="let e of input_field.options" [value]="e">
+          {{e | t}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="input_field.type == 'toggle'">
+    <mat-slide-toggle [checked]="params[input_field.field]" (change)="toggle(input_field.field)" style="padding-right: 1em;  width: 100%;">
+      {{input_field.label | t }}</mat-slide-toggle>
+  </div>
+</div>
+
+
+<div class="double-line-container">
+  <button disabled="{{isDisabled(params)}}" class="single-line-button" mat-raised-button color="primary" (click)="create()">
+    {{"submit" | t}}
+    <!-- <mat-icon>publish</mat-icon> -->
+  </button>
+
+

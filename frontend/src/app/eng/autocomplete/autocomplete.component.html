@@ -1,0 +1,13 @@
+<mat-form-field *ngIf="config" style="padding-right: 1em; width: 100%;">
+  <div>
+    <input matInput placeholder="{{ config.placeholder | t}}" [matAutocomplete]="auto" [(ngModel)]="config.field" (ngModelChange)="search($event)" >
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="display(config)" >
+      <mat-option *ngFor="let option of options " value="{{config.frontend.valueFn(option)}}">
+        {{config.frontend.renderFn(option)}}
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div matSuffix style="display: flex;">
+    <mat-icon class="pointer" style="margin-right: 0.75em;" (click)="reset(auto)" >close</mat-icon>
+  </div>
+</mat-form-field>

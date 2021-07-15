@@ -1,0 +1,53 @@
+.red {
+    color: red !important;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.green {
+  color: green;
+}
+
+.orange{
+    color: orange;
+}
+
+.checkbox {
+  margin-bottom: 1em;
+}
+
+.format {
+  padding-right: 5em;
+}
+
+
+.margin {
+  margin: 0em;
+}
+
+.red-row {
+  background-color: #ffbbbb;
+}
+.green-row {
+  background-color: #ddffdd;
+}
+.yellow-row {
+  background-color: #ffffdd;
+}
+
+.mat-paginator {
+  display: flex;
+  justify-content: left;
+}
+
+
+.button-small-width {
+  width: 1%;
+}
+
+
+
+
+

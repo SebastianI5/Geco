@@ -1,0 +1,25 @@
+<div *ngIf="info.brand_id" class="margin">
+  <div style="margin-bottom: 1em;">
+    <img [src]="brand_image(info.brand_id)" style="float: left; height: 8em;">
+    <div style="float: left; margin-left: 2em;">
+      <dl>
+        <dt><small>{{"dealer" | t}}</small></dt>
+        <dd>{{info.dealer_id}} - {{info.dealer}}</dd>
+
+        <dt><small>{{"service" | t}}</small></dt>
+        <dd>{{info.service }}</dd>
+      </dl>
+    </div>
+  </div>
+  <div style="clear: both;"></div>
+  <h2>{{'contract' | t }} {{ info.contract_id }} - {{"document" | t}} {{info.document}}</h2>
+</div>
+
+
+<mat-card>
+  <app-search 
+    [config]="config" 
+    [params]="params" 
+    [load]="load.bind(this)">
+  </app-search>
+</mat-card>

@@ -1,0 +1,28 @@
+ <div  class="margin" *ngIf="dealer && contract">
+     <div style="margin-bottom: 1em;">
+        <img [src]="brand_image(contract.brand_id)" style="float: left; height: 8em;">
+        <div style="float: left; margin-left: 2em;">
+            <dl>
+                <dt><small>{{"dealer" | t}}</small></dt>
+                <dd>{{dealer.id}} - {{dealer.description}}</dd>
+
+                <dt><small>{{"service" | t}}</small></dt>
+                <dd>{{contract.service_id}}</dd>
+            </dl>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <h2>{{"contract" | t}} {{contract.id}}</h2>
+</div>
+
+
+<mat-card *ngIf="dealer && contract">
+    <app-search
+        [config]="config"
+        [params]="params"
+        [load]="load.bind(this)"
+        [navigate]="navigate.bind(this)">
+   </app-search>
+</mat-card>
+
+

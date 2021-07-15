@@ -1,0 +1,23 @@
+<div class="dashboard-box">
+  <mat-card class=" mat-elevation-z5 dashboard-card">
+    <mat-card-header >{{'contracts_incompleted_by_service' | t }} </mat-card-header>
+    <app-basechart type="bar" section="contracts_incompleted_by_service" ></app-basechart>
+  </mat-card>
+
+  <mat-card class="mat-elevation-z5 dashboard-card">
+    <mat-card-header >{{ 'contracts_completed_by_service' | t }} </mat-card-header>
+    <app-basechart type="doughnut" section="contracts_completed_by_service" ></app-basechart>
+  </mat-card>
+
+  <mat-card class="mat-elevation-z5 dashboard-card">
+    <mat-card-header >{{ 'documents_by_service' | t }} </mat-card-header>
+    <app-basechart type="pie" section="documents_by_service " ></app-basechart>
+  </mat-card>
+
+  <mat-card class="mat-elevation-z5 dashboard-card">
+    <mat-card-header >{{ 'documents_by_year' | t }} </mat-card-header>
+    <app-basechart type="line" section="documents_by_year" ></app-basechart>
+  </mat-card>
+
+</div>
+

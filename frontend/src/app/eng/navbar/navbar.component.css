@@ -1,0 +1,41 @@
+.menu {
+  padding-left: 2em;
+  text-decoration: none;
+  filter: brightness(80%);
+  /* color: #fff; */
+  /* background: var(--lighter-primary); */
+}
+
+.menu:hover {
+  filter: brightness(90%);
+  /* color: var(--lighter-secondary); */
+}
+
+.menu-active{
+  font-weight: 600;
+  filter: brightness(100%) !important;
+  /* color: var(--secondary-color); */
+}
+
+
+.fixed-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+
+.mat-drawer {
+  position:fixed;top: 70px !important
+}
+
+
+@media (max-width: 800px){
+
+  .mat-drawer {
+    position:fixed;top: 50px !important
+  }
+
+
+}

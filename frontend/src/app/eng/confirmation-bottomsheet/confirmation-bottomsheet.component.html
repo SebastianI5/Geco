@@ -1,0 +1,22 @@
+<h2>{{(config.title ? config.title : 'confirm') | t}}</h2>
+<div *ngIf="message_type == 'string' ;   else object_content">
+  <p>
+    {{config.message | t }}
+  </p>
+</div>
+<ng-template #object_content>
+  <pre>
+    {{config.message | json }}
+  </pre>
+</ng-template>
+
+<div class="{{config.classes}}">
+  <button mat-flat-button color="primary" class="{{config.confirm.classes}}" (click)="confirm()">
+    {{config.confirm.title | t}}
+  </button>
+
+  <button *ngIf="config.decline" mat-flat-button color="accent" class="{{config.decline.classes}}" (click)="decline()">
+    {{config.decline.title | t}}
+  </button>
+
+</div>

@@ -1,0 +1,20 @@
+<div class="margin">
+
+  <h2  *ngIf="dealer">{{dealer.id}} - {{dealer.description}} ({{"DEALER_STATUS_" + dealer.status | t}})</h2>
+</div>
+
+<mat-tab-group>
+    <mat-tab label="{{'info' | t}}" *ngIf="dealer">
+        <app-dealer-info [dealer]="dealer"></app-dealer-info>
+    </mat-tab>
+    <mat-tab label="{{'structures' | t}}" *ngIf="dealer && dealer.structures.length > 0">
+        <app-dealer-structures [dealer]="dealer"></app-dealer-structures>
+    </mat-tab>
+    <mat-tab label="{{'mandates' | t}}" *ngIf="dealer && dealer.mandates.length > 0">
+        <app-dealer-mandates [dealer]="dealer"></app-dealer-mandates>
+    </mat-tab>
+    <mat-tab label="{{'contracts' | t}}" *ngIf="dealer && dealer.contracts.length > 0">
+        <app-dealer-contracts [dealer]="dealer"></app-dealer-contracts>
+    </mat-tab>
+</mat-tab-group>
+

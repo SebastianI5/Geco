@@ -1,0 +1,41 @@
+<div>
+  <mat-toolbar class="fixed-toolbar" color="primary" style=" height: auto; color: #fff;">
+    <mat-toolbar-row>
+      <button mat-icon-button *ngIf="!error">
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <span><a title="version: {{build_time}}"  routerLink="/"><img class="logo" style="height: 3em; margin-top: 0.3em"></a></span>
+      <span style="padding-left: 1em">{{current_page | t}}</span>
+      <span style="flex: auto;"></span>
+      <span class="xs"><small>{{name}}</small></span>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button *ngFor="let e of menu_config" mat-menu-item (click)="e.function()" >
+          <mat-icon>{{e.icon}}</mat-icon>
+          <span>{{e.label| t}}</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container  style="min-height:  calc( 100vh - 75px) ">
+    <mat-sidenav #sidenav style="width: fit-content;" (click)="sidenav.close()">
+      <mat-nav-list *ngFor="let e of sidenav_config">
+         <a mat-list-item (click)="navigate(e.link)" *ngIf="e.condition" class="menu {{page_menu(e.label)}}">
+          <mat-icon>{{e.icon}}</mat-icon> &nbsp; {{e.label | t}}</a>
+    </mat-nav-list>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div *ngIf="!error" class="mobile-first">
+        <app-spinner></app-spinner>
+        <ng-content></ng-content>
+      </div>
+      <app-error-page></app-error-page>
+      <app-server-errors></app-server-errors>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+ </div>

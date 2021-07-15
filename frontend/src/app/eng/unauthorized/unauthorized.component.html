@@ -1,0 +1,16 @@
+<mat-card>
+  <div>
+    <div style="width: 100%; text-align: center; margin-top: 3em">
+      <mat-icon>error</mat-icon>
+      <h2 style="margin: 0">{{'unauthorized_head' | t }}</h2>
+      <h4>{{'unauthorized_par' | t}}</h4>
+    </div>
+
+    <div style="width: 100%; text-align: center;margin-bottom: 3em;">
+      <button mat-flat-button color="primary" routerLink="/" (click)="login()">
+        login
+      </button>
+    </div>
+</div>
+
+</mat-card>

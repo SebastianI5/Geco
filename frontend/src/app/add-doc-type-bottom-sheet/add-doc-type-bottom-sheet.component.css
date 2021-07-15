@@ -1,0 +1,26 @@
+.mobile {
+  display: inline-flex; 
+  width: 100%;
+}
+
+mat-form-field.mobile {
+  padding-right: 2%; min-width: 28%;
+}
+
+div.mobile {
+  padding-left: 4%;
+}
+
+@media (max-width : 500px ){
+
+  .mobile {
+    display: inline-flex; flex-direction: column; width: 100%;
+  }
+
+  mat-form-field.mobile {
+    padding: 0;
+  }
+  div.mobile {
+    padding-left: 0;
+  }
+}

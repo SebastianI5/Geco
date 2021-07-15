@@ -1,0 +1,58 @@
+
+  <h2 style="display: inline; padding-bottom: 2em;">{{"doc_type_selection" | t}}</h2>
+
+<div>
+    <mat-form-field style="padding-right: 1em; width: 100%;" >
+        <input matInput placeholder="{{'doc' | t}}" [(ngModel)]="x">
+    </mat-form-field >
+    <mat-form-field style="padding-right: 1em;  width: 100%;">
+        <mat-select [(ngModel)]="selected_category" placeholder="{{'category' | t}}">
+            <mat-option [value]="">
+                . . .
+            </mat-option>
+            <mat-option *ngFor="let e of categories" [value]="e">
+            {{e | t}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-slide-toggle [checked]="isMandatory" (change)="toggleMandatory()" style="padding-right: 1em;  width: 100%;" >{{'mandatory' | t }}</mat-slide-toggle>
+
+</div>
+
+<div  style="padding-top: 1.5em;" *ngIf="(list | filter:selected_category:['category'] | filter:x:['id','description'] | filter:mandatory:['mandatory']).length>0">
+  <button mat-raised-button color="primary" class="single-line-button" (click)="add_all()">{{"add_all" | t}}</button>
+</div>
+
+<div *ngIf="(list | filter:selected_category:['category'] | filter:x:['id','description'] | filter:mandatory:['mandatory']).length == 0">
+    <h4 style="text-align: center;">{{"no_data_found" | t}}</h4>
+</div>
+
+<table class="mat-table" style="width: 100%;" *ngIf="(list | filter:selected_category:['category'] | filter:x:['id','description'] | filter:mandatory:['mandatory']).length>0">
+    <tr class="mat-header-row" >
+        <th class="mat-header-cell" >
+            {{"category" | t}}
+        </th>
+        <th class="mat-header-cell" style="width: 55%;">
+            {{"doc" | t}}
+        </th>
+        <th class="mat-header-cell" >
+            {{"attachment" | t}}
+        </th>
+    </tr>
+    <tr *ngFor="let e of list | filter:selected_category:['category'] | filter:x:['id','description'] | filter:mandatory:['mandatory'] | limit:6"
+            (click)="add_doc_type(e)"
+            class="mat-row"
+            style="cursor: pointer;" >
+        <td class="mat-cell">
+            {{e.category | t}}
+        </td>
+        <td class="mat-cell">
+            {{e.description}} <sup style="color: red;">{{e.mandatory == 1 ? '*' : ''}}</sup>
+        </td>
+
+        <td class="mat-cell">
+            {{e.attachment}}
+        </td>
+    </tr>
+</table>

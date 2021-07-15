@@ -1,0 +1,23 @@
+<div class="xs-padding">
+
+  <h2 *ngIf="box">{{"box" | t}} {{box.id}} - {{box.status | t}} </h2>
+  <h4 *ngIf="box">{{box.username}}</h4>
+
+  <button class="single-line-button" mat-raised-button color="primary" (click)="download()">
+    {{'download_box_pdf' | t}}
+    <mat-icon>
+      save_alt
+    </mat-icon>
+  </button>
+</div>
+
+<mat-card>
+  <app-search 
+    [config]="config" 
+    [params]="params" 
+    [load]="load_covers.bind(this)" 
+    [navigate]="navigate.bind(this)"
+    [add_item]="openBottomSheet" 
+    [show_add]="box && box.status === 'SCATOLA.NEW' && this.list_remaining.length > 0 ">
+  </app-search>
+</mat-card>

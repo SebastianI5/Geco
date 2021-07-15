@@ -1,0 +1,17 @@
+<div>
+  <h2  *ngIf="title">{{title | t}}</h2>
+  <mat-form-field style="width: 100%;" appearance="legacy">
+      <mat-label>{{placeholder | t}}</mat-label>
+      <input #input_id matInput [(ngModel)]="field" (keyup.enter)="submit()">
+  </mat-form-field>
+</div>
+<div class="double-line-container">
+<button disabled="{{field.length <= 0}}"
+    class="single-line-button"
+    mat-raised-button
+    color="primary"
+    (click)="submit()">
+    {{"submit" | t}}
+    <!-- <mat-icon>add_circle_outline</mat-icon> -->
+</button>
+</div>

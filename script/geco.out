@@ -1,0 +1,32 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.4.2)
+
+2021-03-22 18:16:29.731  INFO 6536 --- [           main] com.eng.geco.Main                        : Starting Main v0.0.1-SNAPSHOT using Java 11.0.2 on FSEGALAW with PID 6536 (C:\Users\fsegala\source\repos\Geco-SVN\script\geco-0.0.1-SNAPSHOT.jar started by fsegala in C:\Users\fsegala\source\repos\Geco-SVN\script)
+2021-03-22 18:16:29.739  INFO 6536 --- [           main] com.eng.geco.Main                        : No active profile set, falling back to default profiles: default
+2021-03-22 18:16:34.037  INFO 6536 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-22 18:16:34.038  INFO 6536 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-03-22 18:16:34.281  INFO 6536 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-22 18:16:36.334  INFO 6536 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-22 18:16:36.632  INFO 6536 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-22 18:16:37.054  INFO 6536 --- [           main] com.eng.geco.Main                        : Started Main in 8.581 seconds (JVM running for 9.477)
+2021-03-22 18:16:49.688  INFO 6536 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-22T17:16:50.084501700Z [DEBUG] (first name last name) com.eng.geco.AbstractController.list:35 - select COUNT(0) OVER (PARTITION BY null) as record_count , * from v_boxes_geco where 1=1  and id = :id order by id  asc limit 1 offset 0 
+2021-03-22T17:16:50.176036400Z [DEBUG] (first name last name) com.eng.geco.AuditAspect.log:22 - Executing method: com.eng.geco.BoxesController.get , execution time: 134 ms 
+2021-03-22T17:16:50.178034100Z [DEBUG] (first name last name) com.eng.geco.AbstractController.list:35 - select COUNT(0) OVER (PARTITION BY null) as record_count , * from v_covers_geco where 1=1  and id = :id order by id  asc limit 1 offset 0 
+2021-03-22T17:16:50.192337200Z [DEBUG] (first name last name) com.eng.geco.AbstractController.list:35 - select COUNT(0) OVER (PARTITION BY null) as record_count , * from document_types_geco where 1=1  and id in (:id_in) order by id asc limit 100000 offset 0 
+2021-03-22T17:16:50.325877500Z [DEBUG] (first name last name) com.eng.geco.CoversController.put:130 - update covers_geco set box_id=:box_id::varchar,document_types=:document_types::json where id=:id 
+2021-03-22T17:16:50.358189600Z [DEBUG] (first name last name) com.eng.geco.AbstractController.list:35 - select COUNT(0) OVER (PARTITION BY null) as record_count , * from v_covers_geco where 1=1  and id = :id order by id  asc limit 1 offset 0 
+2021-03-22T17:16:50.393798Z [DEBUG] (first name last name) com.eng.geco.AuditAspect.log:22 - Executing method: com.eng.geco.CoversController.put , execution time: 487 ms 
+2021-03-22T17:17:18.917406600Z [DEBUG] (first name last name) com.eng.geco.AbstractController.list:35 - select COUNT(0) OVER (PARTITION BY null) as record_count , * from v_boxes_geco where 1=1  and id = :id order by id  asc limit 1 offset 0 
+2021-03-22T17:17:18.924177300Z [DEBUG] (first name last name) com.eng.geco.AuditAspect.log:22 - Executing method: com.eng.geco.BoxesController.get , execution time: 7 ms 
+2021-03-22T17:17:18.924714500Z [DEBUG] (first name last name) com.eng.geco.AbstractController.list:35 - select COUNT(0) OVER (PARTITION BY null) as record_count , * from v_covers_geco where 1=1  and id = :id order by id  asc limit 1 offset 0 
+2021-03-22T17:17:18.929116800Z [DEBUG] (first name last name) com.eng.geco.AbstractController.list:35 - select COUNT(0) OVER (PARTITION BY null) as record_count , * from document_types_geco where 1=1  and id in (:id_in) order by id asc limit 100000 offset 0 
+2021-03-22T17:17:18.936158700Z [DEBUG] (first name last name) com.eng.geco.CoversController.put:130 - update covers_geco set box_id=:box_id::varchar,document_types=:document_types::json where id=:id 
+2021-03-22T17:17:18.944508Z [DEBUG] (first name last name) com.eng.geco.AbstractController.list:35 - select COUNT(0) OVER (PARTITION BY null) as record_count , * from v_covers_geco where 1=1  and id = :id order by id  asc limit 1 offset 0 
+2021-03-22T17:17:18.950075800Z [DEBUG] (first name last name) com.eng.geco.AuditAspect.log:22 - Executing method: com.eng.geco.CoversController.put , execution time: 35 ms 
